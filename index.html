@@ -55,6 +55,12 @@ color: white;}
 #navDemo{
     color: white !important;
   }
+  .w3-bar-item {
+  margin-right: 15px; /* Adjust as needed */
+  padding: 8px 16px; /* Slight padding for better spacing */
+}
+
+
 
 </style>
 </head>
@@ -66,13 +72,15 @@ color: white;}
     <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right"  href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu" style="border-radius: 10px;">
       <i class="fa fa-bars"></i>
     </a>
-   <a href="#home" class="w3-bar-item w3-button" style="background-color: white;">
+  
+   <a href="#home" class="w3-bar-item w3-button" style="background-color: white; border-radius: 10px;">
     HOME
 </a>
 
-    <a href="#about" class="w3-bar-item w3-button w3-hide-small" style="background-color: white;"><i class="fa fa-user"></i> BACKGROUND/ QUALIFICATIONS</a>
-    <a href="#portfolio" class="w3-bar-item w3-button w3-hide-small" style="background-color: white;"><i class="fa fa-th"></i>PORTFOLIO</a>
-    <a href="#contact" class="w3-bar-item w3-button w3-hide-small" style="background-color: white;"><i class="fa fa-envelope"></i> CONTACT</a>
+    <a href="#about" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-user"></i> BACKGROUND/ QUALIFICATIONS</a>
+   
+    <a href="#portfolio" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-th"></i>PORTFOLIO</a>
+    <a href="#contact" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-envelope"></i> CONTACT</a>
   </div>
 
   <!-- Navbar on small screens -->
@@ -106,6 +114,7 @@ color: white;}
 
     <!-- Hide this text on small devices -->
     <div class="w3-col m6 w3-hide-small w3-padding-large">
+    <br>
     <h2 style="text-align:center;">Qualifications</h2>
       <p style="text-align:center;">
  <b>Tactical Imagery Analysis Course:</b> USMC 2021
@@ -300,9 +309,6 @@ function toggleFunction() {
     }
 }
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
