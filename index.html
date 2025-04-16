@@ -7,6 +7,10 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
 body, html {
@@ -60,10 +64,110 @@ color: white;}
   margin-right: 15px; /* Adjust as needed */
   padding: 8px 16px; /* Slight padding for better spacing */
 }
-
-
-
+#map { width:70%; height: 80%; 
+		      margin-left: auto;
+                      margin-right: auto;
+		      border-radius: 5px;
+               z-index: 0; /* Keep the map behind other elements */
+		     }
+             #header {
+        width: 1000px; 
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background-color: darkgray;
+    color: white;
+    
+    }
+    .maptitles { background-color: rgb(128, 128, 128);
+    padding: 15px;
+    }
 </style>
+<script>
+
+  // the document ready wraps our javascript
+	// to make sure that everything loads in the 
+	// right order
+	$(document).ready(function() {
+
+		// let's create our basemap! -- ##1 here
+		map = L.map('map').setView([0, 0], 11);
+		
+		// let's add three sets of background tiles - one from OSM,  one from HOT OSM, and one from openTopoMap
+		var OSMTiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+		}).addTo(map);
+		var HOTOSMTiles = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+    			attribution: '© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team hosted by OpenStreetMap France'});
+		var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+			attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'});
+
+		// this is an object to keep track of our three basemaps -- ##2 here
+		var baseMaps = {"OpenStreetMap" : OSMTiles,
+			       "Humanitarian OSM" : HOTOSMTiles,
+			       "OpenTopoMap" : OpenTopoMap};
+
+		// the control let's the user turn on / off layers -- ##3 here
+		var layerControl = L.control.layers(baseMaps, null).addTo(map);
+
+		// function to style my choropleth map
+		function style1 (feature) {
+			d = feature.properties.AVG_FAM_INCOME;
+			answer = d > 250000 ? 'rgb(0,90,50)' :
+                                 d > 150000 ? 'rgb(35,139,69)' :
+                                 d > 125000 ? 'rgb(65,171,93)' :
+                                 d > 100000 ? 'rgb(116,196,118)' :
+                                 d > 75000  ? 'rgb(161,217,155)' :
+                                 d > 50000  ? 'rgb(199,233,192)' :
+                                 d > 40000  ? 'rgb(237,248,233)' :
+                                          'rgb(247,252,245)';
+
+			styleReturn = {
+				fillColor : answer,
+				weight : 1,
+				opacity	: 1,
+				color : 'white',
+				dashArray : '3',
+				fillOpacity : 0.7
+			};
+			return styleReturn;
+		}
+    
+		// let's add the Denver ACS data -- ##4 here
+		$.getJSON('./acs_denver_2021.geojson', function(data) {
+			// covert the file into a layer
+			acsDenver2021Layer = L.geoJSON(data, 
+						       {style:style1, 
+						       onEachFeature:function(feature, layer) {
+							       layer.bindPopup("Average family income: " + feature.properties.AVG_FAM_INCOME + "$");
+						       }}).addTo(map);
+
+			// move the map to the area of the data
+			map.panTo(acsDenver2021Layer.getBounds().getCenter());
+
+			// add the layer to the layercontrol
+			layerControl.addOverlay(acsDenver2021Layer, "Census 2021");
+		});
+
+		// let's try to add some remote DRCOG data
+		$.getJSON('https://services1.arcgis.com/zdB7qR0BtYrg0Xpl/arcgis/rest/services/ODC_TRANS_RTDPARKNRIDE_P/FeatureServer/280/query?outFields=*&where=1%3D1&f=geojson', function(data) {
+			newLayer = L.geoJSON(data);
+			layerControl.addOverlay(newLayer, "RTD Park-N-Ride");
+		});
+		// Adding remote GeoJSON data from the second URL
+$.getJSON('https://services1.arcgis.com/zdB7qR0BtYrg0Xpl/arcgis/rest/services/ODC_PARK_RECCENTER_P/FeatureServer/92/query?outFields=*&where=1%3D1&f=geojson', function(data) {
+     recCenterLayer = L.geoJSON(data); 
+    layerControl.addOverlay(recCenterLayer, "Park & Rec Centers"); 
+});
+
+
+	// end document ready
+	});
+
+</script>
 </head>
 <body>
 
@@ -81,6 +185,7 @@ color: white;}
     <a href="#about" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-user"></i> BACKGROUND/ QUALIFICATIONS</a>
    <a href="#major-accomplishments" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-trophy"></i> MAJOR ACCOMPLISHMENTS</a>
     <a href="#portfolio" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-th"></i>PRODUCTS</a>
+    <a href="#interactivemap" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-map"></i>INTERACTIVE MAP</a>
     <a href="#contact" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-envelope"></i> CONTACT</a>
   </div>
 
@@ -206,6 +311,20 @@ Imagery Analyst/Geospatial Analyst, 3 years USMC
     </div>
   </div>
 </div>
+<p id=interactivemap></p>
+<div class= "maptitles w3-dark-grey">
+<div id="header">
+    <h2><a href="https://www.census.gov/programs-surveys/acs" style="color: white;">Denver 2021 American Community Survey (Census) data</a></h2>
+</div>
+<br>
+<h6 id="header" style="color: white; width: 550px;">
+    Data from <a href="https://opendata-geospatialdenver.hub.arcgis.com/maps/619c7f836b6e4188b0e0f0458aecba26" style="color: white; width: 550px;">Denver Open Data Catalog/ Average Family Income</a>
+</h6>
+</div>
+	<br>
+<div id="map"></div>
+<br>
+<br>
 
 <!-- Modal for full size images on click-->
 <div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
@@ -231,7 +350,6 @@ Imagery Analyst/Geospatial Analyst, 3 years USMC
     </div>
     <div class="w3-col m8 w3-panel">
       <div class="w3-large w3-margin-bottom">
-    
         <i class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Lakewood, Colorado<br>
         <i class="fa fa-phone fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Phone: 720-277-4251<br>
         <i class="fa fa-envelope fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Email: km38191@gmail.com<br>
