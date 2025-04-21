@@ -111,6 +111,19 @@ color: white;}
     .experience:hover {
         background-color: gray; /* Changes color when hovered */
     }
+	.legend {
+line-height: 18px;
+color: #555;
+background-color: rgb(248, 248, 255);
+padding: 2px;
+}
+.legend i {
+width: 18px;
+height: 18px;
+float: left;
+margin-right: 8px;
+opacity: 0.8;
+}
 </style>
 <script>
 
@@ -191,6 +204,22 @@ $.getJSON('https://services1.arcgis.com/zdB7qR0BtYrg0Xpl/arcgis/rest/services/OD
      recCenterLayer = L.geoJSON(data); 
     layerControl.addOverlay(recCenterLayer, "Park & Rec Centers"); 
 });
+		var legend = L.control({position: 'bottomright'}); 
+	    legend.onAdd = function(map) {
+		    var div = L.DomUtil.create('div', 'info legend');
+		    colors = ['rgb(247,252,245)', 'rgb(237,248,233)', 'rgb(199,233,192)', 'rgb(161,217,155)', 'rgb(116,196,118)', 'rgb(65,171,93)', 
+			      'rgb(35,139,69)', 'rgb(0,90,50)' ];
+		    labels = ['0-40,000$', '40,0001-50,000$', '50,001-75,000$', '75,001-100,000$', '100,000-125,000$',
+			     '125,000-150,000$', '150,000-250,000$', '$250,000+'];
+		    
+		    div.innerHTML = '<h3>AVG. FAMILY INCOME USD$</h3>';
+		    for (var i = 0; i <colors.length; i++) {
+			    div.innerHTML += '<i style="background:' + colors[i] + '"></i> ' + labels[i] + '<br>';
+		    }
+		    
+		    return div;
+	    };
+		legend.addTo(map);
 
 
 	// end document ready
