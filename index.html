@@ -127,7 +127,7 @@ opacity: 0.8;
 </style>
 <script>
 
-  // the document ready wraps our javascript
+   // the document ready wraps our javascript
 	// to make sure that everything loads in the 
 	// right order
 	$(document).ready(function() {
@@ -157,15 +157,15 @@ opacity: 0.8;
 
 		// function to style my choropleth map
 		function style1 (feature) {
-			d = feature.properties.AVG_FAM_INCOME;
-			answer = d > 250000 ? 'rgb(0,90,50)' :
-                                 d > 150000 ? 'rgb(35,139,69)' :
-                                 d > 125000 ? 'rgb(65,171,93)' :
-                                 d > 100000 ? 'rgb(116,196,118)' :
-                                 d > 75000  ? 'rgb(161,217,155)' :
-                                 d > 50000  ? 'rgb(199,233,192)' :
-                                 d > 40000  ? 'rgb(237,248,233)' :
-                                          'rgb(247,252,245)';
+			d = feature.properties.PERCENT_OBESE_;
+			answer = d > 40 ? 'rgb(12,44,132)' :
+                                 d > 35 ? 'rgb(34,94,168)' :
+                                 d > 30 ? 'rgb(29,145,192)' :
+                                 d > 25 ? 'rgb(65,182,196)' :
+                                 d > 20  ? 'rgb(127,205,187)' :
+                                 d > 15  ? 'rgb(199,233,180)' :
+                                 d > 10  ? 'rgb(237,248,177)' :
+                                          'rgb(255,255,217)';
 
 			styleReturn = {
 				fillColor : answer,
@@ -178,20 +178,20 @@ opacity: 0.8;
 			return styleReturn;
 		}
     
-		// let's add the Denver ACS data -- ##4 here
-		$.getJSON('./acs_denver_2021.geojson', function(data) {
+		// let's add the Denver Obseity data -- ##4 here
+		$.getJSON('./denver_obesity.geojson', function(data) {
 			// covert the file into a layer
-			acsDenver2021Layer = L.geoJSON(data, 
+			denverobesityLayer = L.geoJSON(data, 
 						       {style:style1, 
 						       onEachFeature:function(feature, layer) {
-							       layer.bindPopup("Average family income: " + feature.properties.AVG_FAM_INCOME + "$");
+							       layer.bindPopup("Percent Of Obese Adults: " + feature.properties.PERCENT_OBESE_ + "%");
 						       }}).addTo(map);
 
 			// move the map to the area of the data
-			map.panTo(acsDenver2021Layer.getBounds().getCenter());
+			map.panTo(denverobesityLayer.getBounds().getCenter());
 
 			// add the layer to the layercontrol
-			layerControl.addOverlay(acsDenver2021Layer, "Census 2021");
+			layerControl.addOverlay(denverobesityLayer, "Denver Obesity 2014-2016");
 		});
 
 		// let's try to add some remote DRCOG data
@@ -204,15 +204,15 @@ $.getJSON('https://services1.arcgis.com/zdB7qR0BtYrg0Xpl/arcgis/rest/services/OD
      recCenterLayer = L.geoJSON(data); 
     layerControl.addOverlay(recCenterLayer, "Park & Rec Centers"); 
 });
-		var legend = L.control({position: 'bottomright'}); 
+            var legend = L.control({position: 'bottomright'}); 
 	    legend.onAdd = function(map) {
 		    var div = L.DomUtil.create('div', 'info legend');
-		    colors = ['rgb(247,252,245)', 'rgb(237,248,233)', 'rgb(199,233,192)', 'rgb(161,217,155)', 'rgb(116,196,118)', 'rgb(65,171,93)', 
-			      'rgb(35,139,69)', 'rgb(0,90,50)' ];
-		    labels = ['0-40,000$', '40,0001-50,000$', '50,001-75,000$', '75,001-100,000$', '100,000-125,000$',
-			     '125,000-150,000$', '150,000-250,000$', '$250,000+'];
+		    colors = ['rgb(255,255,217)', 'rgb(237,248,177)', 'rgb(199,233,180)', 'rgb(127,205,187)', 'rgb(65,182,196)', 'rgb(29,145,192)', 
+			      'rgb(34,94,168)', 'rgb(12,44,132)' ];
+		    labels = ['0-10%', '10-15%', '15-20%', '20-25%', '25-30%',
+			     '30-35%', '35-40%', '40%'];
 		    
-		    div.innerHTML = '<p style="font-family: Garamond, serif;">AVG. FAMILY INCOME USD$</p>';
+		    div.innerHTML = '<h3>Adult Obesity Denver 2014-2016</h3>';
 		    for (var i = 0; i <colors.length; i++) {
 			    div.innerHTML += '<i style="background:' + colors[i] + '"></i> ' + labels[i] + '<br>';
 		    }
@@ -220,7 +220,7 @@ $.getJSON('https://services1.arcgis.com/zdB7qR0BtYrg0Xpl/arcgis/rest/services/OD
 		    return div;
 	    };
 		legend.addTo(map);
-
+		
 
 	// end document ready
 	});
@@ -418,17 +418,15 @@ JAN 2024-AUG 2024
 <div class="maptitles w3-dark-grey" style="padding: 10px;">
     <div id="header">
         <h2 style="text-align: center;">
-            <a href="https://www.census.gov/programs-surveys/acs" style="color: white;">
-                Denver 2021 American Community Survey (Census) data
+            <<a href="https://opendata-geospatialdenver.hub.arcgis.com/" style="color: white;">
+                Denver Open Data Catalog
             </a>
         </h2>
     </div>
     <br>
     <h6 id="header" style="color: white; text-align: center; max-width: 40%; margin: auto;">
-        Data from  
-        <a href="https://opendata-geospatialdenver.hub.arcgis.com/maps/619c7f836b6e4188b0e0f0458aecba26" 
-           style="color: white;">
-            Denver Open Data Catalog/ Average Family Income
+       Data from: <a href="https://opendata-geospatialdenver.hub.arcgis.com/datasets/7550fb747ce14f938d7afd68ab43233d_75/explore?location=39.777243%2C-104.767392%2C9.92">
+            Adult Obesity 2014-2016
         </a>
     </h6>
 </div>
