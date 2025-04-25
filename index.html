@@ -212,7 +212,7 @@ $.getJSON('https://services1.arcgis.com/zdB7qR0BtYrg0Xpl/arcgis/rest/services/OD
 		    labels = ['0-10%', '10-15%', '15-20%', '20-25%', '25-30%',
 			     '30-35%', '35-40%', '40%'];
 		    
-		    div.innerHTML = '<h3>Adult Obesity Denver 2014-2016</h3>';
+		    div.innerHTML = '<h3>Adult Obesity<br>Denver 2014-2016</h3>';
 		    for (var i = 0; i <colors.length; i++) {
 			    div.innerHTML += '<i style="background:' + colors[i] + '"></i> ' + labels[i] + '<br>';
 		    }
@@ -417,8 +417,8 @@ JAN 2024-AUG 2024
 	<br>
 <div class="maptitles w3-dark-grey" style="padding: 10px;">
     <div id="header">
-        <h2 style="text-align: center; max-width: 30%;">
-            <a href="https://opendata-geospatialdenver.hub.arcgis.com/" style="color: white;">
+        <h2 style="text-align: center; width: 30%; margin-right:auto; margin-left: auto;">
+            <a href="https://opendata-geospatialdenver.hub.arcgis.com/" style="color: white; text-align: center; width: 30%; margin-right:auto; margin-left: auto;">
                 Denver Open Data Catalog
             </a>
         </h2>
