@@ -54,7 +54,7 @@ body, html { height: 100%; color: #777; line-height: 1.8; background-color: rgb(
     width: 100%;
     max-width: 1500px;   /* optional: keeps it from stretching too wide */
     margin: 20px auto;  /* small margin between features */
-    height: 400px;      /* fixed height instead of padding-bottom */
+    height: 200px;      /* fixed height instead of padding-bottom */
     overflow: hidden;
 }
 
@@ -63,7 +63,7 @@ body, html { height: 100%; color: #777; line-height: 1.8; background-color: rgb(
     top: 0;
     left: 0;
     width: 100%;        /* fills the container width */
-    height: 100%;       /* fills the container height */
+    height: 75%;       /* fills the container height */
     border: none;
 }
 
@@ -300,14 +300,14 @@ and elevation datasets across Colorado’s major watersheds. <br><br>
 </h5>
 <br>
 <h4 class="w3-center">Snow Water Equivlency Changes (Temporal Plot)</h4>
-<div class="iframe-container">
+<div class="iframe-container" style="height:400px;">
   <iframe src="https://lakevs14.github.io/ESIIL/swe_harmonic.html" 
           title="ESIIL STARS Hydrology Interactive Feature"
           frameborder="0"
           allowfullscreen>
   </iframe>
 </div>
-<br><br>
+
 <h4 class="w3-center">Interactive Map: All Variables Percentage Changes</h4>
 <div class="iframe-container">
   <iframe
@@ -317,7 +317,7 @@ and elevation datasets across Colorado’s major watersheds. <br><br>
     allowfullscreen>
   </iframe>
 </div>
-<br><br>
+
 <h4 class="w3-center">Interactive Analysis: Streamflow Discharge Regression Cubic Feet Per Second (CFS)</h4>
 <div class="iframe-container">
   <iframe
@@ -327,7 +327,7 @@ and elevation datasets across Colorado’s major watersheds. <br><br>
     allowfullscreen>
   </iframe>
 </div>
-<br><br>
+
 <!-- Modal for full size images on click-->
 <div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
 <span class="w3-button w3-large w3-black w3-display-topright" title="Close Modal Image"><i class="fa fa-remove"></i></span>
