@@ -21,7 +21,12 @@ body, html { height: 100%; color: #777; line-height: 1.8; background-color: rgb(
 /* Second image (Portfolio) */
 .bgimg-2 { background-image: url("https://i.postimg.cc/MZmDwbhZ/RSLab3.png"); min-height: 80%; margin }
 /* Third image (Contact) */
-.bgimg-3 { background-image: url("https://i.postimg.cc/K8Q0x7wh/profwebphoto.jpg.jpg"); min-height: 400px; }
+.bgimg-3 {
+  background-image: url("https://raw.githubusercontent.com/Lakevs14/ProfWeb1/main/profwebphoto.jpg");
+  min-height: 400px;
+  background-size: cover;       /* makes the image fill the area */
+  background-position: center;  /* centers the image */
+}
 .w3-wide {letter-spacing: 10px; color: white;}
 .w3-hover-opacity {cursor: pointer;}
 /* Turn off parallax scrolling for tablets and phones */
