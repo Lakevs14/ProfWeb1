@@ -1,379 +1,264 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+<title>Kevin E. Morales Portfolio</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kevin E. Morales | Geospatial Analyst Portfolio</title>
-
-<!-- Fonts & Icons -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<!-- Leaflet -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <style>
-/* ==== GLOBAL ==== */
-body, html {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  scroll-behavior: smooth;
-  background-color: #f9fafc;
-  color: #333;
-}
-
-/* ==== NAVBAR ==== */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  background: rgba(255,255,255,0.95);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 15px 0;
-  z-index: 999;
-}
-
-nav a {
-  text-decoration: none;
-  color: #2e3b55;
-  font-weight: 500;
-  padding: 8px 14px;
-  border-radius: 8px;
-  transition: all 0.3s;
-}
-nav a:hover {
-  background-color: #2e3b55;
-  color: white;
-}
-
-/* ==== HERO ==== */
-.hero {
-  background: linear-gradient(to right, rgba(30,41,59,0.9), rgba(71,85,105,0.8)),
-              url('https://i.postimg.cc/Mp171Sc8/Marine-corps.jpg') center/cover no-repeat;
-  color: white;
-  text-align: center;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.hero h1 {
-  font-size: 3rem;
-  margin-bottom: 10px;
-}
-.hero h3 {
-  font-weight: 300;
-  font-size: 1.3rem;
-}
-
-/* ==== SECTION WRAPPER ==== */
-section {
-  padding: 100px 10%;
-  max-width: 1200px;
-  margin: auto;
-}
-section h2 {
-  text-align: center;
-  color: #2e3b55;
-  font-size: 2rem;
-  margin-bottom: 40px;
-}
-
-/* ==== ABOUT ==== */
-.about {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 40px;
-}
-.about img {
-  border-radius: 15px;
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
-.about-text {
-  flex: 1;
-  min-width: 280px;
-  font-size: 1rem;
-  line-height: 1.8;
-}
-
-/* ==== ACCOMPLISHMENTS ==== */
-.accomplishments {
-  background-color: #2e3b55;
-  color: white;
-  text-align: center;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 20px;
-  padding: 60px 10%;
-  border-radius: 12px;
-}
-.accomplishments div {
-  flex: 1 1 200px;
-}
-.accomplishments span {
-  display: block;
-  font-size: 2.5rem;
-  font-weight: 600;
-}
-
-/* ==== EXPERIENCE ==== */
-.experience-item {
-  background: white;
-  border-radius: 10px;
-  padding: 15px 20px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  font-weight: 600;
-  color: #2e3b55;
-  transition: background 0.3s;
-}
-.experience-item:hover {
-  background-color: #f1f5f9;
-}
-.experience-content {
-  display: none;
-  padding: 20px;
-  background: #f9fafc;
-  border-radius: 0 0 10px 10px;
-  line-height: 1.7;
-}
-
-/* ==== GALLERY ==== */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 15px;
-}
-.gallery img {
-  width: 100%;
-  border-radius: 8px;
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-}
-.gallery img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-}
-
-/* ==== MODAL ==== */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 10000;
-  left: 0; top: 0; width: 100%; height: 100%;
-  background-color: rgba(0,0,0,0.9);
-}
-.modal img {
-  display: block;
-  max-width: 90%;
-  max-height: 80%;
-  margin: 80px auto;
-  border-radius: 10px;
-}
-.modal span {
-  position: absolute;
-  top: 20px;
-  right: 40px;
-  font-size: 2rem;
-  color: white;
-  cursor: pointer;
-}
-
-/* ==== MAP ==== */
-#map {
-  height: 500px;
-  width: 100%;
-  border-radius: 10px;
-  margin-top: 30px;
-}
-.legend {
-  background: white;
-  padding: 8px;
-  line-height: 20px;
-  font-size: 0.9rem;
-}
-.legend i {
-  width: 15px;
-  height: 15px;
-  float: left;
-  margin-right: 8px;
-  opacity: 0.7;
-}
-
-/* ==== CONTACT ==== */
-.contact {
-  background-color: #2e3b55;
-  color: white;
-  border-radius: 12px;
-  padding: 60px 10%;
-  text-align: center;
-}
-.contact a {
-  color: #a5b4fc;
-  text-decoration: none;
-}
-.contact a:hover {
-  text-decoration: underline;
-}
-
-/* ==== RESPONSIVE ==== */
-@media (max-width: 768px) {
-  nav { flex-wrap: wrap; gap: 10px; }
-  .about { flex-direction: column; text-align: center; }
-}
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+body, html { height: 100%; color: #777; line-height: 1.8; background-color: rgb(252, 252, 255); }
+/* Create a Parallax Effect */
+.bgimg-1, .bgimg-2, .bgimg-3 { background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; }
+/* First image (Logo. Full height) */
+.bgimg-1 { background-image: url('https://i.postimg.cc/Mp171Sc8/Marine-corps.jpg'); min-height: 100%; }
+/* Second image (Portfolio) */
+.bgimg-2 { background-image: url("https://i.postimg.cc/MZmDwbhZ/RSLab3.png"); min-height: 80%; margin }
+/* Third image (Contact) */
+.bgimg-3 { background-image: url("https://i.postimg.cc/K8Q0x7wh/prof-photo-2.jpg"); min-height: 400px; }
+.w3-wide {letter-spacing: 10px; color: white;}
+.w3-hover-opacity {cursor: pointer;}
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1600px) { .bgimg-1, .bgimg-2, .bgimg-3 { background-attachment: scroll; min-height: 400px; } }
+#navDemo{ color: white !important; }
+.w3-bar-item { margin-right: 15px; padding: 8px 16px; }
+#map { width:70%; height: 70%; margin-left: auto; margin-right: auto; border-radius: 5px; z-index: 0; }
+#header { width: 30%; margin-left: auto; margin-right: auto; text-align: center; background-color: darkgray; color: white; border-radius: 10px; }
+.maptitles { background-color: rgb(128, 128, 128); padding: 15px; width: 90%; border-radius: 10px; margin-left: auto; margin-right: auto; }
+.experience { text-align: center; width: 70%; cursor: pointer; color: white; background-color: rgb(85,85,85); padding: 10px; margin-bottom: 5px; margin-left: auto; margin-right: auto; border-radius:10px; }
+.experienceContent { display: none; width: 70%; margin: auto; text-align: center; font-family: "Lato", sans-serif; color: #777; line-height: 1.8; background-color: white; padding: 10px; }
+.experience:hover { background-color: gray; }
+.legend { line-height: 18px; color: #555; background-color: rgb(248, 248, 255); padding: 2px; }
+.legend i { width: 10px; height: 15px; float: left; margin-right: 8px; opacity: 0.8; }
 </style>
+<script>
+$(document).ready(function() {
+map = L.map('map').setView([0, 0], 11);
+var OSMTiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>' }).addTo(map);
+var HOTOSMTiles = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team hosted by OpenStreetMap France'});
+var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'});
+var baseMaps = {"OpenStreetMap" : OSMTiles, "Humanitarian OSM" : HOTOSMTiles, "OpenTopoMap" : OpenTopoMap};
+var layerControl = L.control.layers(baseMaps, null).addTo(map);
+function style1 (feature) { d = feature.properties.PERCENT_OBESE_; answer = d > 40 ? 'rgb(12,44,132)' : d > 35 ? 'rgb(34,94,168)' : d > 30 ? 'rgb(29,145,192)' : d > 25 ? 'rgb(65,182,196)' : d > 20 ? 'rgb(127,205,187)' : d > 15 ? 'rgb(199,233,180)' : d > 10 ? 'rgb(237,248,177)' : 'rgb(255,255,217)'; styleReturn = { fillColor : answer, weight : 1, opacity : 1, color : 'white', dashArray : '3', fillOpacity : 0.7 }; return styleReturn; }
+$.getJSON('./denver_obesity.geojson', function(data) {
+denverobesityLayer = L.geoJSON(data, {style:style1, onEachFeature:function(feature, layer) { layer.bindPopup("Percent Of Obese Adults: " + feature.properties.PERCENT_OBESE_ + "%"); }}).addTo(map);
+map.panTo(denverobesityLayer.getBounds().getCenter());
+layerControl.addOverlay(denverobesityLayer, "Denver Obesity 2014-2016");
+});
+$.getJSON('https://services1.arcgis.com/zdB7qR0BtYrg0Xpl/arcgis/rest/services/ODC_TRANS_TRAFFICCALMING_P2/FeatureServer/383/query?outFields=*&where=1%3D1&f=geojson', function(data) { newLayer = L.geoJSON(data); layerControl.addOverlay(newLayer, "Bikeway Traffic Calming"); });
+$.getJSON('https://services1.arcgis.com/zdB7qR0BtYrg0Xpl/arcgis/rest/services/ODC_PARK_RECCENTER_P/FeatureServer/92/query?outFields=*&where=1%3D1&f=geojson', function(data) { recCenterLayer = L.geoJSON(data); layerControl.addOverlay(recCenterLayer, "Park & Rec Centers"); });
+var legend = L.control({position: 'bottomright'});
+legend.onAdd = function(map) { var div = L.DomUtil.create('div', 'info legend'); colors = ['rgb(255,255,217)', 'rgb(237,248,177)', 'rgb(199,233,180)', 'rgb(127,205,187)', 'rgb(65,182,196)', 'rgb(29,145,192)', 'rgb(34,94,168)', 'rgb(12,44,132)']; labels = ['0-10%', '10-15%', '15-20%', '20-25%', '25-30%', '30-35%', '35-40%', '40%+']; div.innerHTML = '<h5 style="font-family: Georgia, serif;">Adult Obesity<br><br>Denver 2014-2016</h5>'; for (var i = 0; i <colors.length; i++) { div.innerHTML += '<i style="background:' + colors[i] + '"></i> ' + labels[i] + '<br>'; } return div; };
+legend.addTo(map);
+});
+</script>
 </head>
 <body>
-
-<!-- NAVBAR -->
-<nav>
-  <a href="#home">Home</a>
-  <a href="#about">Background</a>
-  <a href="#accomplishments">Accomplishments</a>
-  <a href="#experience">Experience</a>
-  <a href="#portfolio">Products</a>
-  <a href="#mapSection">Interactive Map</a>
-  <a href="#contact">Contact</a>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="home">
-  <h1>Kevin E. Morales</h1>
-  <h3>Geospatial Analyst | Marine Veteran</h3>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <h2>Background / Qualifications</h2>
-  <div class="about">
-    <img src="https://i.postimg.cc/fZszLRY6/prof-photo.jpg" alt="Kevin Morales">
-    <div class="about-text">
-      <p>As a dedicated veteran with six years of service in the Marine Corps, I am eager to apply my skills and discipline to GIS-related roles that drive impactful solutions. My passion lies in leveraging geospatial technology to support infrastructure development, agricultural analysis, and other critical applications. With a commitment to problem-solving and efficiency, I aim to contribute to organizations by optimizing spatial data, enhancing decision-making processes, and fostering innovation in geographic analysis.</p>
-      <ul>
-        <li><b>Tactical Imagery Analysis Course:</b> USMC 2021</li>
-        <li><b>B.A. Geography:</b> Metropolitan State University (Minor: GIS, Certificate: GIS, Graduation: Spring 2026)</li>
-        <li><b>Experience:</b> 3 years Imagery/Geospatial Analysis (USMC)</li>
-        <li><b>Clearance:</b> TS/SCI</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ACCOMPLISHMENTS -->
-<section id="accomplishments">
-  <h2>Major Accomplishments</h2>
-  <div class="accomplishments">
-    <div><span>8</span>Deployments Supported</div>
-    <div><span>3</span>Squadron Elements Trained</div>
-    <div><span>300+</span>Products Made</div>
-    <div><span>150+</span>Briefs Conducted</div>
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <h2>Detailed Experience</h2>
-  <p style="text-align:center;">(Click to expand details)</p>
-
-  <div class="experience-item">MARINE CORPS 2017–2023 | Infantry & Combat Marksman Trainer</div>
-  <div class="experience-content">
-    <p>As an Infantry 0352 Antitank Missile Gunner and Combat Marksman Trainer, played a critical role in preparing Marines for operational readiness, overseeing training, and ensuring effectiveness across rapid-response units in the Middle East.</p>
-  </div>
-
-  <div class="experience-item">Geospatial Intelligence Imagery Analyst Sergeant | MAG-13 Yuma, AZ (2020–2023)</div>
-  <div class="experience-content">
-    <p>Produced 300+ intelligence products, conducted 150+ briefs, and supported two squadron elements during Pacific operations. Mentored seven analysts in advanced geospatial techniques.</p>
-  </div>
-
-  <div class="experience-item">Classification Security Management Clerk | MAG-13 Yuma, AZ (2020–2023)</div>
-  <div class="experience-content">
-    <p>Managed 700+ clearance records and classification workflows, ensuring compliance and mission success across training deployments.</p>
-  </div>
-
-  <div class="experience-item">Red Rocks Veteran Peer Advisor | Lakewood, CO (2024)</div>
-  <div class="experience-content">
-    <p>Supported over 300 veteran students with benefits processing and expanded campus veteran resources through partnership initiatives and outreach.</p>
-  </div>
-</section>
-
-<!-- GALLERY -->
-<section id="portfolio">
-  <h2>GIS Products</h2>
-  <p style="text-align:center;">Click on images to enlarge</p>
-  <div class="gallery">
-    <img src="https://i.postimg.cc/cLHTXgkx/phoenix.jpg" alt="Travel Cost Analysis">
-    <img src="https://i.postimg.cc/x1cyKrqq/RSLAB-3.jpg" alt="Viewshed Analysis">
-    <img src="https://i.postimg.cc/q4fVvkS9/GIS-4850-Mini-2.png" alt="Inverse Weight Distancing Analysis">
-    <img src="https://i.postimg.cc/MGLLybWJ/GIS-2250-Mini-Proj-2.png" alt="Denver Obesity Map">
-  </div>
-</section>
-
-<!-- MAP -->
-<section id="mapSection">
-  <h2>Interactive Map</h2>
-  <p style="text-align:center;">Data Source: <a href="https://opendata-geospatialdenver.hub.arcgis.com/" target="_blank">Denver Open Data Catalog</a></p>
-  <div id="map"></div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="contact">
-  <h2>Contact</h2>
-  <p><i class="fa-solid fa-location-dot"></i> Lakewood, CO</p>
-  <p><i class="fa-solid fa-phone"></i> 720-277-4251</p>
-  <p><i class="fa-solid fa-envelope"></i> <a href="mailto:km38191@gmail.com">km38191@gmail.com</a></p>
-  <p><i class="fa-brands fa-linkedin"></i> <a href="https://www.linkedin.com/in/kevin-morales-69816b288/" target="_blank">LinkedIn Profile</a></p>
-</section>
-
-<!-- MODAL -->
-<div id="modal" class="modal">
-  <span>&times;</span>
-  <img id="modalImg">
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+<div class="w3-bar" id="myNavbar">
+<a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu" style="border-radius: 10px;">
+<i class="fa fa-bars"></i>
+</a>
+<a href="#home" class="w3-bar-item w3-button" style="background-color: white; border-radius: 10px;"> HOME </a>
+<a href="#about" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-user"></i> BACKGROUND/ QUALIFICATIONS</a>
+<a href="#major-accomplishments" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-trophy"></i> MAJOR ACCOMPLISHMENTS</a>
+<a href="#detailed-experience" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-briefcase"></i> DETAILED EXPERIENCE</a>
+<a href="#portfolio" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-th"></i>PRODUCTS</a>
+<a href="#interactivemap" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-map"></i>INTERACTIVE MAP</a>
+<a href="#contact" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-envelope"></i> CONTACT</a>
 </div>
+<!-- Navbar on small screens -->
+<div id= "header-color">
+<div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+<a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()" style="color: gray;">BACKGROUND</a>
+<a href="#major-accomplishments" class="w3-bar-item w3-button" onclick="toggleFunction()" style="color: gray;">MAJOR ACCOMPLISHMENTS</a>
+<a href="#detailed-experience" class="w3-bar-item w3-button" onclick="toggleFunction()" style="color: gray;">DETAILED EXPERIENCE</a>
+<a href="#portfolio" class="w3-bar-item w3-button" onclick="toggleFunction()" style="color: gray;">PRODUCTS</a>
+<a href="#interactivemap" class="w3-bar-item w3-button" onclick="toggleFunction()" style="color: gray;">INTERACTIVE MAP</a>
+<a href="#contact" class="w3-bar-item w3-button" onclick="toggleFunction()" style="color: gray;">CONTACT</a>
+</div>
+</div>
+</div>
+<!-- First Parallax Image with Logo Text -->
+<div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
+<div class="w3-display-middle" style="white-space:nowrap;">
+<span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity " style="border-radius: 10px;">Kevin <span class="w3-hide-small">E</span> Morales</span>
+</div>
+</div>
+<!-- Container (About Section) -->
+<div class="w3-content w3-container w3-padding-64" id="about">
+<h3 class="w3-center">BACKGROUND</h3>
+<p class="w3-center"><em>Geospatial Analyst/ Marine Veteran</em></p>
+<p style="text-align: center;">As a dedicated veteran with six years of service in the Marine Corps, I am eager to apply my skills and discipline to GIS-related roles that drive impactful solutions. My passion lies in leveraging geospatial technology to support infrastructure development, agricultural analysis, and other critical applications. With a commitment to problem-solving and efficiency, I aim to contribute to organizations by optimizing spatial data, enhancing decision-making processes, and fostering innovation in geographic analysis.</p>
+<div class="w3-row">
+<div class="w3-col m6 w3-center w3-padding-large">
+<br>
+<img src="https://i.postimg.cc/fZszLRY6/prof-photo.jpg" class="w3-round w3-image" alt="Photo of Me" width="500" height="333">
+</div>
+<!-- Hide this text on small devices -->
+<div class="w3-col m6 w3-hide-small w3-padding-large">
+<br>
+<h3 style="text-align:center;">Qualifications</h3>
+<p style="text-align:center;">
+<b>Tactical Imagery Analysis Course:</b> USMC 2021 <br><br>
+<b>Metropolitan State University:</b> Graduation Spring 2026 B.A. <b>Major:</b> Geography&nbsp; <b>Minor:</b> GIS with GIS Certificate <br><br>
+<b>Experience:</b> Imagery Analyst/Geospatial Analyst: 3 years USMC <br><br>
+<b>Clearance:</b> TS/SCI
+</p>
+</div>
+</div>
+</div>
+<p id="major-accomplishments"></p>
+<br>
+<div class="w3-row w3-center w3-dark-grey w3-padding-16">
+<h3 style="text-align: center; background-color: darkgray; max-width: 50%; margin: auto; padding: 10px; font-size: 1.5em; line-height: 1.4;"> Major Accomplishments </h3>
+<div class="w3-quarter w3-section">
+<span class="w3-xlarge">8</span><br> DEPLOYMENTS SUPPORTED
+</div>
+<div class="w3-quarter w3-section">
+<span class="w3-xlarge">3</span><br> SQUADRON ELEMENTS TRAINED
+</div>
+<div class="w3-quarter w3-section">
+<span class="w3-xlarge">300+</span><br> PRODUCTS MADE
+</div>
+<div class="w3-quarter w3-section">
+<span class="w3-xlarge">150+</span><br> BRIEFS CONDUCTED
+</div>
+</div>
+<!-- Second Parallax Image with Portfolio Text -->
+<div class="bgimg-2 w3-display-container w3-opacity-min">
+<div class="w3-display-middle">
+<span class="w3-xxlarge w3-text-white w3-wide"></span>
+</div>
+</div>
+<p id="detailed-experience"></p>
+<br><br><br>
+<h3 class="w3-center">Detailed Experience</h3>
+<p class="w3-center">(Click On Experiences To Reveal Details)</p>
+<h5 class="experience" style="font-family: 'Lato', sans-serif;">MARINE CORPS 2017-2023, INFANTRY 2017-2020 (COMBAT MARKSMAN TRAINER/ COACH 2020-2023) </h5>
+<p class="experienceContent">•&nbsp;&nbsp;As an Infantry 0352 Antitank Missile Gunner and Combat Marksman Trainer, played a critical role in preparing and training Marines within the 5th Regiment for operational readiness. Oversaw the marksmanship development of over multiple combat marksman coaches, ensuring they possessed the expertise necessary to train their units effectively. <br><br>•&nbsp;&nbsp;Served as a Non-Commissioned Officer, leading and training Marines in missile system operations and tactical combat maneuvers. Ensured combat effectiveness in high-intensity operational environments while mentoring junior Marines to excel in leadership and marksmanship proficiency, fostering a disciplined and highly capable unit. This rigorous training directly contributed to the readiness of quick reaction force elements assigned to the Special Purpose Marine Air-Ground Task Force in the Middle East, enabling swift and effective responses in dynamic operational environments.</p>
+<h5 class="experience" style="font-family: 'Lato', sans-serif;">GEOSPATIAL INTELLIGENCE IMAGERY ANALYST SERGEANT <br> MARINE CORPS AIR STATION YUMA, ARIZONA, Marine Air Group 13, Marine Fighter Attack Squadron 122 <br> 2020-2023 </h5>
+<p class="experienceContent">•&nbsp;&nbsp;Played a pivotal role in supporting two squadron elements—comprising 600 personnel—in achieving mission success within the 13th Marine Expeditionary Unit. As an Intelligence Imagery Analyst Sergeant, produced over 300 high-quality intelligence products, delivered more than 150 mission-critical briefs, and mentored seven analysts in advanced geospatial intelligence techniques. <br><br>•&nbsp;&nbsp;Contributed to operational excellence across 10 rigorous training deployments and a strategic South China Sea/Pacific deployment, ensuring precision in intelligence assessments and enhancing mission readiness.</p>
+<h5 class="experience" style="font-family: 'Lato', sans-serif;">CLASSIFICATION SECURITY MANAGEMENT CLERK <br> MARINE CORPS AIR STATION YUMA, ARIZONA, Marine Air Group 13, Marine Fighter Attack Squadron 122 <br> 2020-2023 </h5>
+<p class="experienceContent">•&nbsp;&nbsp;Oversaw the management of more than 700 security clearance records and classifications for MAG-13 and VMFA-122, ensuring strict compliance with squadron security requirements.<br><br>•&nbsp;&nbsp;This meticulous oversight directly contributed to mission success across multiple training deployments and a strategic South China Sea/Pacific deployment-key skills that translate directly to geospatial workflows, where accuracy and strategic organization are critical for mission success.</p>
+<h5 class="experience" style="font-family: 'Lato', sans-serif;">RED ROCKS VETERAN PEER ADVISOR <br> RED ROCKS COMMUNITY COLLEGE LAKEWOOD CAMPUS <br> JAN 2024-AUG 2024 </h5>
+<p class="experienceContent">•&nbsp;&nbsp;Assisted the Red Rocks Veteran’s office in processing over 300 veteran student’s benefits for the Spring and Summer semesters. All qualified Veterans were able to receive proper funding and attend required classes.<br><br>&nbsp;&nbsp; • Assisted in expanding the Veteran Community through other Veteran Organizations. Veteran’s at RRCC are allocated more resources such as flag disposal, events, and mental health conferences through the expansion. The greater involvement and more resources provided to the Veterans further assistance in their academic accomplishment/ expansion of the Veteran Community. </p>
+<!-- Container (Portfolio Section) -->
+<br>
+<div class="w3-content w3-container w3-padding-64" id="portfolio">
+<h3 class="w3-center">Products</h3>
+<p class="w3-center">Below are examples of GIS products I have created, showcasing a range of scenarios and applications. While I would love to share work from my time in the Marine Corps, the classified nature of my role prevents me from doing so.</p>
+<p class="w3-center">Click on the images to enlarge them.</p>
+<!-- Responsive Grid -->
+<div class="w3-row-padding w3-center">
+<div class="w3-col m3">
+<img src="https://i.postimg.cc/cLHTXgkx/phoenix.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Travel Cost Analysis">
+</div>
+<div class="w3-col m3">
+<img src="https://i.postimg.cc/x1cyKrqq/RSLAB-3.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Viewshed Analysis">
+</div>
+<div class="w3-col m3">
+<img src="https://i.postimg.cc/q4fVvkS9/GIS-4850-Mini-2.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Inverse Weight Distancing Analysis">
+</div>
+<div class="w3-col m3">
+<img src="https://i.postimg.cc/MGLLybWJ/GIS-2250-Mini-Proj-2.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Denver Obesity Map">
+</div>
+</div>
+<div class="w3-row-padding w3-center w3-section">
+<div class="w3-col m3">
+<img src="https://i.postimg.cc/4N8Q74fr/RSlab3-1.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Contour Line, Elevation, and Hillshade Analysis">
+</div>
+<div class="w3-col m3">
+<img src="https://i.postimg.cc/tT7JMBLf/difficulty.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Flow Length Analysis">
+</div>
+<div class="w3-col m3">
+<img src="https://i.postimg.cc/Jnt5MVy5/weighted.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Multi Water Shed/ Flow Length Analysis">
+</div>
+<div class="w3-col m3">
+<img src="https://i.postimg.cc/sxHnnMhL/damlocation.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Sailing">
+</div>
+</div>
+</div>
+<p id=interactivemap></p>
+<br>
 
+<h3 class="w3-center">Interactive Map Using GeoJSON</h3>
+
+<h6 class="w3-center"><a href="https://opendata-geospatialdenver.hub.arcgis.com/" style="text-align: center; margin-right:auto; margin-left: auto;"> Denver Open Data Catalog </a></h6>
+
+<h6 class="w3-center"> Data from: <a href="https://opendata-geospatialdenver.hub.arcgis.com/datasets/7550fb747ce14f938d7afd68ab43233d_75/explore?location=39.777243%2C-104.767392%2C9.92"> Adult Obesity 2014-2016 </a> </h6>
+
+<br>
+<div id="map"></div>
+<br><br>
+<!-- Modal for full size images on click-->
+<div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
+<span class="w3-button w3-large w3-black w3-display-topright" title="Close Modal Image"><i class="fa fa-remove"></i></span>
+<div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+<img id="img01" class="w3-image">
+<p id="caption" class="w3-opacity w3-large"></p>
+</div>
+</div>
+<br><br>
+<!-- Third Parallax Image with Portfolio Text -->
+<div class="bgimg-3 w3-display-container w3-opacity-min">
+<div class="w3-display-middle">
+<span class="w3-xxlarge w3-text-white w3-wide" style="text-align:center;">Contact Info</span>
+</div>
+</div>
+<!-- Container (Contact Section) -->
+<div class="w3-content w3-container w3-padding-64">
+<div class="w3-row w3-padding-32 w3-section">
+<div class="w3-col m4 w3-container">
+<img src="https://www.lakewood.org/files/assets/public/v/1/community-resources/parks/kendrick-park/kendrick-park-playground.jpg" class="w3-image w3-round" style="width:100%">
+</div>
+<div class="w3-col m8 w3-panel">
+<div class="w3-large w3-margin-bottom">
+<i class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Lakewood, Colorado<br>
+<i class="fa fa-phone fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Phone: 720-277-4251<br>
+<i class="fa fa-envelope fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Email: km38191@gmail.com<br>
+<i class="fa fa-linkedin fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> <a href="https://www.linkedin.com/in/kevin-morales-69816b288/" target="_blank" rel="noopener noreferrer"> LinkedIn </a> <br>
+</div>
+</div>
+</div>
+<div style="text-align:center; background-color:gray; padding:20px;">
+<a href="#home" class="w3-button w3-light-grey"> <i class="fa fa-arrow-up w3-margin-right"></i>To the top </a>
+</div>
 <script>
-// ===== EXPERIENCE TOGGLE =====
-$(".experience-item").click(function(){
-  $(this).next(".experience-content").slideToggle(400);
+// Modal Image Gallery
+function onClick(element) {
+document.getElementById("img01").src = element.src;
+document.getElementById("modal01").style.display = "block";
+var captionText = document.getElementById("caption");
+captionText.innerHTML = element.alt;
+}
+// Change style of navbar on scroll
+window.onscroll = function() {myFunction()};
+function myFunction() {
+var navbar = document.getElementById("myNavbar");
+if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
+} else {
+navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
+}
+}
+// Used to toggle the menu on small screens when clicking on the menu button
+function toggleFunction() {
+var x = document.getElementById("navDemo");
+if (x.className.indexOf("w3-show") == -1) { x.className += " w3-show"; } 
+else { x.className = x.className.replace(" w3-show", ""); }
+}
+$(document).ready(function(){
+$(".experience").click(function(){
+$(this).next(".experienceContent").slideToggle(500); 
 });
-
-// ===== IMAGE MODAL =====
-$(".gallery img").click(function(){
-  $("#modalImg").attr("src", $(this).attr("src"));
-  $("#modal").fadeIn(300);
-});
-$(".modal span").click(function(){
-  $("#modal").fadeOut(300);
-});
-
-// ===== LEAFLET MAP =====
-const map = L.map('map').setView([39.7392, -104.9903], 11);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: '© OpenStreetMap contributors'
-}).addTo(map);
-
-// Add simple GeoJSON layer example
-$.getJSON('./denver_obesity.geojson', function(data) {
-  const style = f => ({
-    fillColor: f.properties.PERCENT_OBESE_ > 35 ? '#2e3b55' : '#a5b4fc',
-    color: '#fff',
-    weight: 1,
-    fillOpacity: 0.7
-  });
-  L.geoJSON(data, {
-    style: style,
-    onEachFeature: (f, l) => l.bindPopup(`Obesity: ${f.properties.PERCENT_OBESE_}%`)
-  }).addTo(map);
 });
 </script>
 </body>
