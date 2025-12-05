@@ -49,14 +49,27 @@ body, html { height: 100%; color: #777; line-height: 1.8; background-color: rgb(
     overflow: hidden;
   }
 
-  .iframe-container iframe {
+.iframe-container {
+    position: relative;
+    width: 100%;
+    max-width: 1500px;   /* optional: keeps it from stretching too wide */
+    margin: 20px auto;  /* small margin between features */
+    height: 400px;      /* fixed height instead of padding-bottom */
+    overflow: hidden;
+}
+
+.iframe-container iframe {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100%;        /* fills the container width */
+    height: 100%;       /* fills the container height */
     border: none;
-  }
+}
+
+
+
+
 
   /* Optional: tweak for smaller screens */
   @media (max-width: 768px) {
