@@ -41,15 +41,10 @@ body, html { height: 100%; color: #777; line-height: 1.8; background-color: rgb(
 .experience:hover { background-color: gray; }
 .legend { line-height: 18px; color: #555; background-color: rgb(248, 248, 255); padding: 2px; }
 .legend i { width: 10px; height: 15px; float: left; margin-right: 8px; opacity: 0.8; }
- .iframe-container {
-    position: relative;
-    width: 100%;
-    padding-bottom: 65%; /* Adjust aspect ratio (16:10 here) */
-    height: 0;
-    overflow: hidden;
-  }
+ 
 
 .iframe-container {
+	padding-bottom: 50%;
     position: relative;
     width: 100%;
     max-width: 1500px;   /* optional: keeps it from stretching too wide */
@@ -300,7 +295,7 @@ and elevation datasets across Colorado’s major watersheds. <br><br>
 </h5>
 <br>
 <h4 class="w3-center">Snow Water Equivlency Changes (Temporal Plot)</h4>
-<div class="iframe-container" style="height:400px;">
+<div class="iframe-container" style="padding-bottom:55%;">
   <iframe src="https://lakevs14.github.io/ESIIL/swe_harmonic.html" 
           title="ESIIL STARS Hydrology Interactive Feature"
           frameborder="0"
