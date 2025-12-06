@@ -41,37 +41,7 @@ body, html { height: 100%; color: #777; line-height: 1.8; background-color: rgb(
 .experience:hover { background-color: gray; }
 .legend { line-height: 18px; color: #555; background-color: rgb(248, 248, 255); padding: 2px; }
 .legend i { width: 10px; height: 15px; float: left; margin-right: 8px; opacity: 0.8; }
- 
 
-.iframe-container {
-	padding-bottom: 50%;
-    position: relative;
-    width: 100%;
-    max-width: 1500px;   /* optional: keeps it from stretching too wide */
-    margin: 20px auto;  /* small margin between features */
-    height: 200px;      /* fixed height instead of padding-bottom */
-    overflow: hidden;
-}
-
-.iframe-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;        /* fills the container width */
-    height: 75%;       /* fills the container height */
-    border: none;
-}
-
-
-
-
-
-  /* Optional: tweak for smaller screens */
-  @media (max-width: 768px) {
-    .iframe-container {
-      padding-bottom: 80%; /* taller aspect ratio for mobile */
-    }
-  }
 
 </style>
 <script>
@@ -294,44 +264,23 @@ and elevation datasets across Colorado’s major watersheds. <br><br>
 
 </h5>
 <br>
-<h4 class="w3-center">Snow Water Equivlency Changes (Temporal Plot)</h4>
-<div class="iframe-container" style="padding-bottom:55%;">
-  <iframe src="https://lakevs14.github.io/ESIIL/swe_harmonic.html" 
-          title="ESIIL STARS Hydrology Interactive Feature"
-          frameborder="0"
-          allowfullscreen>
-  </iframe>
+<h5 style="font-weight: bold; text-align: center;">SWE Harmonic Plot</h5>
+<div style="display: flex; justify-content: center;">
+  <iframe src="swe_harmonic.html" style="width:80%; height:900px; border:none;"></iframe>
 </div>
 
-<h4 class="w3-center">Interactive Map: All Variables Percentage Changes</h4>
-<div class="iframe-container">
-  <iframe
-    src="https://lakevs14.github.io/ESIIL/final_map.html"
-    title="Final Interactive Map — Irrigated Agriculture Percent Change and Hydrology"
-    frameborder="0"
-    allowfullscreen>
-  </iframe>
+<div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+  <h5 style="font-weight: bold; text-align: center;">Colorado Population, SWE, Discharge, and Irrigation Change Map</h5>
+  <iframe src="final_map.html" style="width:60%; height:900px; border:none;"></iframe>
 </div>
 
-<h4 class="w3-center">Interactive Analysis: Streamflow Discharge Regression Cubic Feet Per Second (CFS)</h4>
-<div class="iframe-container">
-  <iframe
-    src="https://lakevs14.github.io/ESIIL/discharge_regression.html"
-    title="Discharge Regression Interactive Feature"
-    frameborder="0"
-    allowfullscreen>
-  </iframe>
+<div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+  <h5 style="font-weight: bold; text-align: center;">Streamflow Regression Plot (cf3)</h5>
+  <iframe src="discharge_regression.html" style="width:80%; height:900px; border:none;"></iframe>
 </div>
 
 <!-- Modal for full size images on click-->
-<div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
-<span class="w3-button w3-large w3-black w3-display-topright" title="Close Modal Image"><i class="fa fa-remove"></i></span>
-<div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
-<img src="profwebphoto.jpg" id="profwebphoto" class="w3-image">
-<p id="caption" class="w3-opacity w3-large"></p>
-</div>
-</div>
-<br><br>
+
 <!-- Third Parallax Image with Portfolio Text -->
 <div class="bgimg-3 w3-display-container w3-opacity-min">
 <div class="w3-display-middle">
@@ -388,3 +337,4 @@ $(this).next(".experienceContent").slideToggle(500);
 </script>
 </body>
 </html>
+
