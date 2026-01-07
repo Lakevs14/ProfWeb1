@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,6 +42,20 @@ body, html { height: 100%; color: #777; line-height: 1.8; background-color: rgb(
 .experience:hover { background-color: gray; }
 .legend { line-height: 18px; color: #555; background-color: rgb(248, 248, 255); padding: 2px; }
 .legend i { width: 10px; height: 15px; float: left; margin-right: 8px; opacity: 0.8; }
+.w3-modal {
+  background-color: rgba(0,0,0) !important;
+}
+#caption {
+  color: white !important;
+  background-color: black !important;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-weight: 600;
+  opacity: 1 !important; /* overrides w3-opacity */
+  text-align: center;
+}
+
+
 
 
 </style>
@@ -179,7 +194,7 @@ legend.addTo(map);
 •&nbsp;&nbsp;Contributed to the successful execution of <strong>8 major training deployments</strong> and one strategic Pacific deployment by ensuring all personnel maintained proper clearance levels, enabling seamless integration of intelligence and operational planning.
 </p>
 
-</p>
+
 <h5 class="experience" style="font-family: 'Lato', sans-serif;">RED ROCKS VETERAN PEER ADVISOR <br> RED ROCKS COMMUNITY COLLEGE LAKEWOOD CAMPUS <br> JAN 2024-AUG 2024 </h5>
 <p class="experienceContent">•&nbsp;&nbsp;Assisted the Red Rocks Veteran’s Office in processing benefits for over <strong>300 veteran students</strong> during the Spring and Summer semesters, ensuring timely access to funding and enrollment in required courses. <br><br>
 •&nbsp;&nbsp;Streamlined administrative workflows by digitizing intake forms and coordinating with financial aid staff, reducing average processing time by <strong>25%</strong> and improving accuracy in benefits distribution. <br><br>
@@ -235,16 +250,25 @@ and elevation datasets across Colorado’s major watersheds. <br><br>
 <img src="https://i.postimg.cc/4N8Q74fr/RSlab3-1.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Contour Line, Elevation, and Hillshade Analysis">
 </div>
 <div class="w3-col m3">
-<img src="https://i.postimg.cc/tT7JMBLf/difficulty.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Flow Length Analysis">
+<img src="https://i.postimg.cc/tT7JMBLf/difficulty.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Ski Difficulty Analysis">
 </div>
 <div class="w3-col m3">
-<img src="https://i.postimg.cc/Jnt5MVy5/weighted.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Multi Water Shed/ Flow Length Analysis">
+<img src="https://i.postimg.cc/Jnt5MVy5/weighted.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Ski Resort Suitability Analysis">
 </div>
 <div class="w3-col m3">
-<img src="https://i.postimg.cc/sxHnnMhL/damlocation.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Sailing">
+<img src="https://i.postimg.cc/sxHnnMhL/damlocation.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Multi Water Shed Analysis">
 </div>
 </div>
 </div>
+
+<div id="modal01" class="w3-modal" onclick="this.style.display='none'">
+  <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+  <div class="w3-modal-content w3-animate-zoom">
+    <img id="img01" style="width:100%">
+    <p id="caption" class="w3-opacity w3-large"></p>
+  </div>
+</div>
+
 <p id=interactivemap></p>
 <br>
 
@@ -287,6 +311,7 @@ and elevation datasets across Colorado’s major watersheds. <br><br>
 <!-- Modal for full size images on click-->
 
 <!-- Third Parallax Image with Portfolio Text -->
+<p id="contact"></p>
 <div class="bgimg-3 w3-display-container w3-opacity-min">
 <div class="w3-display-middle">
 <span class="w3-xxlarge w3-text-white w3-wide" style="text-align:center;">Contact Info</span>
@@ -313,7 +338,7 @@ and elevation datasets across Colorado’s major watersheds. <br><br>
 <script>
 // Modal Image Gallery
 function onClick(element) {
-document.getElementById("profwebphoto").src = element.src;
+document.getElementById("img01").src = element.src;
 document.getElementById("modal01").style.display = "block";
 var captionText = document.getElementById("caption");
 captionText.innerHTML = element.alt;
@@ -342,5 +367,3 @@ $(this).next(".experienceContent").slideToggle(500);
 </script>
 </body>
 </html>
-
-
