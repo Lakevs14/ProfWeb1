@@ -1,370 +1,1319 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Kevin E. Morales Portfolio</title>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kevin E. Morales | Geospatial Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
-body, html { height: 100%; color: #777; line-height: 1.8; background-color: rgb(252, 252, 255); }
-/* Create a Parallax Effect */
-.bgimg-1, .bgimg-2, .bgimg-3 { background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; }
-/* First image (Logo. Full height) */
-.bgimg-1 { background-image: url('https://i.postimg.cc/Mp171Sc8/Marine-corps.jpg'); min-height: 100%; }
-/* Second image (Portfolio) */
-.bgimg-2 { background-image: url("https://i.postimg.cc/MZmDwbhZ/RSLab3.png"); min-height: 80%; margin }
-/* Third image (Contact) */
-.bgimg-3 {
-  background-image: url("https://raw.githubusercontent.com/Lakevs14/ProfWeb1/main/profwebphoto.jpg");
-  min-height: 400px;
-  background-size: cover;       /* makes the image fill the area */
-  background-position: center;  /* centers the image */
-}
-.w3-wide {letter-spacing: 10px; color: white;}
-.w3-hover-opacity {cursor: pointer;}
-/* Turn off parallax scrolling for tablets and phones */
-@media only screen and (max-device-width: 1600px) { .bgimg-1, .bgimg-2, .bgimg-3 { background-attachment: scroll; min-height: 400px; } }
-#navDemo{ color: white !important; }
-.w3-bar-item { margin-right: 15px; padding: 8px 16px; }
-#map { width:70%; height: 70%; margin-left: auto; margin-right: auto; border-radius: 5px; z-index: 0; }
-#header { width: 30%; margin-left: auto; margin-right: auto; text-align: center; background-color: darkgray; color: white; border-radius: 10px; }
-.maptitles { background-color: rgb(128, 128, 128); padding: 15px; width: 90%; border-radius: 10px; margin-left: auto; margin-right: auto; }
-.experience { text-align: center; width: 70%; cursor: pointer; color: white; background-color: rgb(85,85,85); padding: 10px; margin-bottom: 5px; margin-left: auto; margin-right: auto; border-radius:10px; }
-.experienceContent { display: none; width: 70%; margin: auto; text-align: center; font-family: "Lato", sans-serif; color: #777; line-height: 1.8; background-color: white; padding: 10px; }
-.experience:hover { background-color: gray; }
-.legend { line-height: 18px; color: #555; background-color: rgb(248, 248, 255); padding: 2px; }
-.legend i { width: 10px; height: 15px; float: left; margin-right: 8px; opacity: 0.8; }
-.w3-modal {
-  background-color: rgba(0,0,0) !important;
-}
-#caption {
-  color: white !important;
-  background-color: black !important;
-  padding: 10px 14px;
-  border-radius: 4px;
-  font-weight: 600;
-  opacity: 1 !important; /* overrides w3-opacity */
-  text-align: center;
-}
+  :root {
+    --ink: #0e0f13;
+    --sand: #e8dcc8;
+    --sand-light: #f4ede0;
+    --olive: #4a5240;
+    --olive-mid: #6b7560;
+    --olive-light: #8f9a82;
+    --accent: #c8873a;
+    --accent-light: #e8a95a;
+    --white: #fafaf8;
+    --muted: #5c5e60;
+    --border: rgba(74,82,64,0.2);
+    --card-bg: rgba(255,255,255,0.65);
+  }
 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  html { scroll-behavior: smooth; font-size: 16px; }
 
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--sand-light);
+    color: var(--ink);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── GRAIN OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(14,15,19,0.94);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 clamp(1rem, 4vw, 3rem);
+    height: 60px;
+    border-bottom: 1px solid rgba(200,135,58,0.3);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--sand);
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--accent);
+    background: rgba(200,135,58,0.1);
+  }
+
+  /* Hamburger */
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 1px solid rgba(200,135,58,0.5);
+    border-radius: 4px;
+    padding: 6px 10px;
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 60px; left: 0; right: 0;
+    background: rgba(14,15,19,0.97);
+    z-index: 999;
+    padding: 1rem 2rem 2rem;
+    border-bottom: 1px solid rgba(200,135,58,0.3);
+  }
+
+  .mobile-menu.open { display: block; }
+
+  .mobile-menu a {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--sand);
+    text-decoration: none;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .mobile-menu a:hover { color: var(--accent); }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-toggle { display: block; }
+  }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #0e0f13 0%, #1e2118 45%, #2a2e20 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: clamp(6rem, 12vw, 10rem) clamp(1.5rem, 5vw, 4rem) 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #home::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('https://i.postimg.cc/Mp171Sc8/Marine-corps.jpg') center/cover no-repeat;
+    opacity: 0.12;
+  }
+
+  /* coordinate grid lines */
+  #home::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(200,135,58,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,135,58,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-content { position: relative; z-index: 2; }
+
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(0.65rem, 2vw, 0.75rem);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-tag::before, .hero-tag::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1.hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 14vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: 6px;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+
+  h1.hero-name span { color: var(--accent); }
+
+  .hero-subtitle {
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    color: var(--olive-light);
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+
+  .badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border: 1px solid rgba(200,135,58,0.4);
+    border-radius: 2px;
+    color: var(--accent-light);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    color: var(--olive-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ── SECTION SHELLS ── */
+  section {
+    padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 6vw, 5rem);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    letter-spacing: 3px;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    line-height: 1;
+  }
+
+  .section-divider {
+    width: 60px;
+    height: 3px;
+    background: var(--accent);
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── ABOUT ── */
+  #about-section {
+    background: var(--white);
+  }
+
+  #about-section > section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  @media (max-width: 768px) {
+    #about-section > section { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  .about-img-wrap {
+    position: relative;
+  }
+
+  .about-img-wrap img {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+  }
+
+  .about-img-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    pointer-events: none;
+  }
+
+  .bio-text {
+    font-size: clamp(0.9rem, 1.8vw, 1rem);
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .quals-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .qual-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1rem;
+    background: var(--sand-light);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .qual-icon {
+    color: var(--accent);
+    font-size: 1rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .qual-text { font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
+  .qual-text strong { color: var(--ink); display: block; font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2px; }
+
+  /* ── STATS BANNER ── */
+  .stats-banner {
+    background: linear-gradient(135deg, var(--ink) 0%, #1a1e14 100%);
+    padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 6vw, 5rem);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 5rem);
+    color: var(--accent);
+    line-height: 1;
+    display: block;
+  }
+
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--olive-light);
+    margin-top: 0.5rem;
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience-section { background: var(--sand-light); }
+
+  .exp-accordion {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+    background: var(--white);
+  }
+
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 1.5rem;
+    cursor: pointer;
+    background: var(--white);
+    transition: background 0.2s;
+    gap: 1rem;
+  }
+
+  .exp-header:hover { background: var(--sand-light); }
+
+  .exp-header-left { flex: 1; }
+
+  .exp-role {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    color: var(--ink);
+    line-height: 1.3;
+  }
+
+  .exp-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-top: 3px;
+  }
+
+  .exp-chevron {
+    color: var(--olive-mid);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    font-size: 0.85rem;
+  }
+
+  .exp-accordion.open .exp-chevron { transform: rotate(180deg); }
+
+  .exp-body {
+    display: none;
+    padding: 0 1.5rem 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .exp-body ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+  }
+
+  .exp-body li {
+    font-size: clamp(0.85rem, 1.8vw, 0.93rem);
+    color: var(--muted);
+    padding: 0.5rem 0 0.5rem 1.4rem;
+    position: relative;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+  }
+
+  .exp-body li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .exp-body li strong { color: var(--ink); }
+
+  /* ── PRODUCTS ── */
+  #products-section { background: var(--white); }
+
+  .products-intro {
+    font-size: clamp(0.88rem, 1.8vw, 0.97rem);
+    color: var(--muted);
+    max-width: 700px;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Web Projects */
+  .web-projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .project-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--sand-light);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
+  .project-card-header {
+    background: linear-gradient(135deg, var(--olive) 0%, var(--ink) 100%);
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(200,135,58,0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,135,58,0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+
+  .project-icon {
+    position: relative;
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .project-card-title {
+    position: relative;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    color: var(--white);
+  }
+
+  .project-card-body { padding: 1.25rem 1.5rem 1.5rem; }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    background: rgba(74,82,64,0.12);
+    color: var(--olive);
+    border-radius: 2px;
+  }
+
+  .project-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 1px;
+    transition: color 0.2s, gap 0.2s;
+  }
+
+  .project-link:hover { gap: 10px; color: var(--accent-light); }
+
+  /* GIS Map Gallery */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    cursor: pointer;
+    aspect-ratio: 4/3;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+    display: block;
+  }
+
+  .gallery-item:hover img { transform: scale(1.06); }
+
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(14,15,19,0.85) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex;
+    align-items: flex-end;
+    padding: 0.9rem;
+  }
+
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+  .gallery-caption {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.3;
+  }
+
+  /* ── MAP SECTION ── */
+  #map-section { background: var(--sand-light); }
+
+  #map {
+    width: 100%;
+    height: clamp(350px, 55vw, 600px);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  .map-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--olive-mid);
+    margin-top: 0.75rem;
+    letter-spacing: 1px;
+  }
+
+  /* Python outputs */
+  .iframe-stack { margin-top: 2rem; display: flex; flex-direction: column; gap: 3rem; }
+
+  .iframe-wrap { width: 100%; }
+  .iframe-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .iframe-wrap iframe {
+    width: 100%;
+    height: clamp(400px, 60vw, 800px);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  /* ── CONTACT ── */
+  #contact-section {
+    background: linear-gradient(160deg, var(--ink) 0%, #1c2018 100%);
+  }
+
+  #contact-section section { max-width: 1200px; }
+  #contact-section .section-title { color: var(--white); }
+  #contact-section .section-label { color: var(--accent); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  @media (max-width: 768px) {
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  .contact-img {
+    width: 100%;
+    border-radius: 4px;
+    object-fit: cover;
+    aspect-ratio: 4/3;
+  }
+
+  .contact-list { list-style: none; display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: clamp(0.88rem, 2vw, 1rem);
+    color: var(--sand);
+  }
+
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(200,135,58,0.4);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .contact-item a { color: var(--sand); text-decoration: none; transition: color 0.2s; }
+  .contact-item a:hover { color: var(--accent); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #07080a;
+    text-align: center;
+    padding: 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    color: var(--olive-mid);
+  }
+
+  footer a { color: var(--accent); text-decoration: none; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 9000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal-inner {
+    max-width: 90vw;
+    max-height: 90vh;
+    position: relative;
+  }
+
+  .modal-inner img {
+    max-width: 90vw;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 4px;
+    display: block;
+  }
+
+  .modal-cap {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: var(--sand);
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: -2.5rem;
+    right: 0;
+    background: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* BACK TO TOP */
+  .back-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid rgba(200,135,58,0.4);
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background 0.2s;
+    margin-top: 3rem;
+  }
+
+  .back-top:hover { background: rgba(200,135,58,0.1); }
 
 </style>
-<script>
-$(document).ready(function() {
-map = L.map('map').setView([0, 0], 11);
-var OSMTiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>' }).addTo(map);
-var HOTOSMTiles = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team hosted by OpenStreetMap France'});
-var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'});
-var baseMaps = {"OpenStreetMap" : OSMTiles, "Humanitarian OSM" : HOTOSMTiles, "OpenTopoMap" : OpenTopoMap};
-var layerControl = L.control.layers(baseMaps, null).addTo(map);
-function style1 (feature) { d = feature.properties.PERCENT_OBESE_; answer = d > 40 ? 'rgb(12,44,132)' : d > 35 ? 'rgb(34,94,168)' : d > 30 ? 'rgb(29,145,192)' : d > 25 ? 'rgb(65,182,196)' : d > 20 ? 'rgb(127,205,187)' : d > 15 ? 'rgb(199,233,180)' : d > 10 ? 'rgb(237,248,177)' : 'rgb(255,255,217)'; styleReturn = { fillColor : answer, weight : 1, opacity : 1, color : 'white', dashArray : '3', fillOpacity : 0.7 }; return styleReturn; }
-$.getJSON('./denver_obesity.geojson', function(data) {
-denverobesityLayer = L.geoJSON(data, {style:style1, onEachFeature:function(feature, layer) { layer.bindPopup("Percent Of Obese Adults: " + feature.properties.PERCENT_OBESE_ + "%"); }}).addTo(map);
-map.panTo(denverobesityLayer.getBounds().getCenter());
-layerControl.addOverlay(denverobesityLayer, "Denver Obesity 2014-2016");
-});
-$.getJSON('https://services1.arcgis.com/zdB7qR0BtYrg0Xpl/arcgis/rest/services/ODC_TRANS_TRAFFICCALMING_P2/FeatureServer/383/query?outFields=*&where=1%3D1&f=geojson', function(data) { newLayer = L.geoJSON(data); layerControl.addOverlay(newLayer, "Bikeway Traffic Calming"); });
-$.getJSON('https://services1.arcgis.com/zdB7qR0BtYrg0Xpl/arcgis/rest/services/ODC_PARK_RECCENTER_P/FeatureServer/92/query?outFields=*&where=1%3D1&f=geojson', function(data) { recCenterLayer = L.geoJSON(data); layerControl.addOverlay(recCenterLayer, "Park & Rec Centers"); });
-var legend = L.control({position: 'bottomright'});
-legend.onAdd = function(map) { var div = L.DomUtil.create('div', 'info legend'); colors = ['rgb(255,255,217)', 'rgb(237,248,177)', 'rgb(199,233,180)', 'rgb(127,205,187)', 'rgb(65,182,196)', 'rgb(29,145,192)', 'rgb(34,94,168)', 'rgb(12,44,132)']; labels = ['0-10%', '10-15%', '15-20%', '20-25%', '25-30%', '30-35%', '35-40%', '40%+']; div.innerHTML = '<h5 style="font-family: Georgia, serif;">Adult Obesity<br><br>Denver 2014-2016</h5>'; for (var i = 0; i <colors.length; i++) { div.innerHTML += '<i style="background:' + colors[i] + '"></i> ' + labels[i] + '<br>'; } return div; };
-legend.addTo(map);
-});
-</script>
 </head>
+
 <body>
-<!-- Navbar (sit on top) -->
-<div class="w3-top">
-<div class="w3-bar" id="myNavbar">
-<a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu" style="border-radius: 10px;">
-<i class="fa fa-bars"></i>
-</a>
-<a href="#home" class="w3-bar-item w3-button" style="background-color: white; border-radius: 10px;"> HOME </a>
-<a href="#about" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-user"></i> BACKGROUND/ QUALIFICATIONS</a>
-<a href="#major-accomplishments" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-trophy"></i> MAJOR ACCOMPLISHMENTS</a>
-<a href="#detailed-experience" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-briefcase"></i> DETAILED EXPERIENCE</a>
-<a href="#portfolio" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-th"></i>PRODUCTS</a>
-<a href="#interactivemap" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-map"></i>INTERACTIVE MAP</a>
-<a href="#contact" class="w3-bar-item w3-button w3-hide-small" style="background-color: white; border-radius: 10px;"><i class="fa fa-envelope"></i> CONTACT</a>
-</div>
-<!-- Navbar on small screens -->
-<div id= "header-color">
-<div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
-<a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()" style="color: gray;">BACKGROUND</a>
-<a href="#major-accomplishments" class="w3-bar-item w3-button" onclick="toggleFunction()" style="color: gray;">MAJOR ACCOMPLISHMENTS</a>
-<a href="#detailed-experience" class="w3-bar-item w3-button" onclick="toggleFunction()" style="color: gray;">DETAILED EXPERIENCE</a>
-<a href="#portfolio" class="w3-bar-item w3-button" onclick="toggleFunction()" style="color: gray;">PRODUCTS</a>
-<a href="#interactivemap" class="w3-bar-item w3-button" onclick="toggleFunction()" style="color: gray;">INTERACTIVE MAP</a>
-<a href="#contact" class="w3-bar-item w3-button" onclick="toggleFunction()" style="color: gray;">CONTACT</a>
-</div>
-</div>
-</div>
-<!-- First Parallax Image with Logo Text -->
-<div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
-<div class="w3-display-middle" style="white-space:nowrap;">
-<span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity " style="border-radius: 10px;">Kevin <span class="w3-hide-small">E</span> Morales</span>
-</div>
-</div>
-<!-- Container (About Section) -->
-<div class="w3-content w3-container w3-padding-64" id="about">
-<h3 class="w3-center">BACKGROUND</h3>
-<p class="w3-center"><em>Geospatial Analyst/ Marine Veteran</em></p>
-<p style="text-align: center;">As a dedicated veteran with six years of service in the Marine Corps, I am eager to apply my skills and discipline to GIS-related roles that drive impactful solutions. My passion lies in leveraging geospatial technology to support infrastructure development, agricultural analysis, and other critical applications. With a commitment to problem-solving and efficiency, I aim to contribute to organizations by optimizing spatial data, enhancing decision-making processes, and fostering innovation in geographic analysis.</p>
-<div class="w3-row">
-<div class="w3-col m6 w3-center w3-padding-large">
-<br>
-<img src="https://i.postimg.cc/fZszLRY6/prof-photo.jpg" class="w3-round w3-image" alt="Photo of Me" width="500" height="333">
-</div>
-<!-- Hide this text on small devices -->
-<div class="w3-col m6 w3-hide-small w3-padding-large">
-<br>
-<h3 style="text-align:center;">Qualifications</h3>
-<p style="text-align:center;">
-<b>Tactical Imagery Analysis Course:</b> USMC 2021 <br><br>
-<b>Metropolitan State University:</b> Graduation Spring 2026 B.A. <b>Major:</b> Geography&nbsp; <b>Minor:</b> GIS with GIS Certificate <br><br>
-<b>Experience:</b> Imagery Analyst/Geospatial Analyst: 3 years USMC <br><br>
-<b>Clearance:</b> TS/SCI
-</p>
-</div>
-</div>
-</div>
-<p id="major-accomplishments"></p>
-<br>
-<div class="w3-row w3-center w3-dark-grey w3-padding-16">
-<h3 style="text-align: center; background-color: darkgray; max-width: 50%; margin: auto; padding: 10px; font-size: 1.5em; line-height: 1.4;"> Major Accomplishments </h3>
-<div class="w3-quarter w3-section">
-<span class="w3-xlarge">8</span><br> DEPLOYMENTS SUPPORTED
-</div>
-<div class="w3-quarter w3-section">
-<span class="w3-xlarge">3</span><br> SQUADRON ELEMENTS TRAINED
-</div>
-<div class="w3-quarter w3-section">
-<span class="w3-xlarge">300+</span><br> PRODUCTS MADE
-</div>
-<div class="w3-quarter w3-section">
-<span class="w3-xlarge">150+</span><br> BRIEFS CONDUCTED
-</div>
-</div>
-<!-- Second Parallax Image with Portfolio Text -->
-<div class="bgimg-2 w3-display-container w3-opacity-min">
-<div class="w3-display-middle">
-<span class="w3-xxlarge w3-text-white w3-wide"></span>
-</div>
-</div>
-<p id="detailed-experience"></p>
-<br><br><br>
-<h3 class="w3-center">Detailed Experience</h3>
-<p class="w3-center">(Click On Experiences To Reveal Details)</p>
-<h5 class="experience" style="font-family: 'Lato', sans-serif;">MARINE CORPS 2017-2023, INFANTRY 2017-2020 (COMBAT MARKSMAN TRAINER/ COACH 2020-2023) </h5>
-<p class="experienceContent">•&nbsp;&nbsp;Played a critical role in preparing and training Marines within the 5th Regiment for operational readiness, overseeing the marksmanship development of <strong>20+ combat marksmanship coaches</strong> to ensure they possessed the expertise necessary to train their units effectively. <br><br>
-•&nbsp;&nbsp;Served as a Non-Commissioned Officer, leading and training Marines in operations and tactical combat maneuvers, directly enhancing combat effectiveness in high-intensity operational environments. <br><br>
-•&nbsp;&nbsp;Conducted <strong>30+ live-fire training exercises</strong> and marksman drills, ensuring proficiency in weapon systems and tactical employment under combat conditions. <br><br>
-•&nbsp;&nbsp;Mentored <strong>30+ junior Marines</strong> in leadership, discipline, and marksmanship proficiency, fostering a highly capable and cohesive unit prepared for rapid deployment. <br><br>
-•&nbsp;&nbsp;Contributed to the readiness of quick reaction force elements assigned to the Special Purpose Marine Air-Ground Task Force in the Middle East, enabling swift and effective responses in dynamic operational environments. <br><br>
-•&nbsp;&nbsp;Implemented standardized training protocols that reduced qualification failures by <strong>15%</strong>, improving overall unit readiness and operational confidence. <br><br>
-•&nbsp;&nbsp;Applied precision, discipline, and tactical problem-solving skills that translate directly into geospatial and earth data science workflows, reinforcing accuracy, reproducibility, and mission-focused execution in technical domains.
 
-</p>
-<h5 class="experience" style="font-family: 'Lato', sans-serif;">GEOSPATIAL INTELLIGENCE IMAGERY ANALYST SERGEANT <br> MARINE CORPS AIR STATION YUMA, ARIZONA, Marine Air Group 13, Marine Fighter Attack Squadron 122 <br> 2020-2023 </h5>
-<p class="experienceContent">•&nbsp;&nbsp;Contributed in supporting two squadron elements—comprising <strong>600 personnel</strong>—in achieving mission success within the 13th Marine Expeditionary Unit. Produced over <strong>300 high-quality intelligence products</strong> and delivered more than <strong>150 mission-critical briefs</strong>, ensuring commanders had precise, actionable intelligence. <br><br>
-•&nbsp;&nbsp;Mentored <strong>seven analysts</strong> in advanced geospatial intelligence techniques, fostering technical proficiency in imagery exploitation, cartographic design, and spatial analysis workflows. <br><br>
-•&nbsp;&nbsp;Contributed to operational excellence across <strong>10 training deployments</strong> and one strategic South China Sea/Pacific deployment, enhancing mission readiness through accurate intelligence assessments and situational awareness. <br><br>
-•&nbsp;&nbsp;Integrated multi-source imagery and geospatial datasets to identify terrain features, infrastructure vulnerabilities, and potential adversary movements, directly supporting tactical planning and operational decision-making. <br><br>
-•&nbsp;&nbsp;Developed standardized geospatial workflows that reduced analysis turnaround time by <strong>20%</strong>, ensuring rapid intelligence dissemination during high-tempo operations. <br><br>
-•&nbsp;&nbsp;Collaborated with pilots, intelligence officers, and ground units to synchronize imagery analysis with mission objectives, strengthening cross-functional coordination and operational effectiveness. <br><br>
-•&nbsp;&nbsp;Applied precision, reproducibility, and cartographic best practices that translate directly into GIS and Earth Data Science workflows, bridging military intelligence expertise with academic and technical geospatial applications.
-</p>
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">K.E. Morales</a>
+  <ul class="nav-links">
+    <li><a href="#about-section">Background</a></li>
+    <li><a href="#experience-section">Experience</a></li>
+    <li><a href="#products-section">Products</a></li>
+    <li><a href="#map-section">Map</a></li>
+    <li><a href="#contact-section">Contact</a></li>
+  </ul>
+  <button class="nav-toggle" onclick="toggleMobile()" aria-label="Toggle menu">
+    <i class="fa fa-bars"></i>
+  </button>
+</nav>
 
-</p>
-<h5 class="experience" style="font-family: 'Lato', sans-serif;">CLASSIFICATION SECURITY MANAGEMENT CLERK <br> MARINE CORPS AIR STATION YUMA, ARIZONA, Marine Air Group 13, Marine Fighter Attack Squadron 122 <br> 2020-2023 </h5>
-<p class="experienceContent">•&nbsp;&nbsp;Oversaw the management of more than <strong>700 security clearance records</strong> and classifications for MAG-13 and VMFA-122, ensuring strict compliance with Department of Defense and squadron security protocols. <br><br>
-•&nbsp;&nbsp;Implemented systematic audits and digital tracking processes that reduced administrative errors by <strong>30%</strong>, strengthening operational readiness and safeguarding classified information. <br><br>
-•&nbsp;&nbsp;Coordinated with <strong>20+ officers and staff</strong> to maintain clearance accuracy across multiple units, directly supporting mission success during training deployments and a strategic South China Sea/Pacific deployment. <br><br>
-•&nbsp;&nbsp;Developed standardized workflows for clearance updates and record verification, cutting processing time by <strong>25%</strong> and ensuring rapid response to operational demands. <br><br>
-•&nbsp;&nbsp;Applied meticulous organizational skills that translated directly to geospatial workflows, where precision and accuracy are critical for mission success and intelligence reliability. <br><br>
-•&nbsp;&nbsp;Contributed to the successful execution of <strong>8 major training deployments</strong> and one strategic Pacific deployment by ensuring all personnel maintained proper clearance levels, enabling seamless integration of intelligence and operational planning.
-</p>
-
-
-<h5 class="experience" style="font-family: 'Lato', sans-serif;">RED ROCKS VETERAN PEER ADVISOR <br> RED ROCKS COMMUNITY COLLEGE LAKEWOOD CAMPUS <br> JAN 2024-AUG 2024 </h5>
-<p class="experienceContent">•&nbsp;&nbsp;Assisted the Red Rocks Veteran’s Office in processing benefits for over <strong>300 veteran students</strong> during the Spring and Summer semesters, ensuring timely access to funding and enrollment in required courses. <br><br>
-•&nbsp;&nbsp;Streamlined administrative workflows by digitizing intake forms and coordinating with financial aid staff, reducing average processing time by <strong>25%</strong> and improving accuracy in benefits distribution. <br><br>
-•&nbsp;&nbsp;Expanded the Veteran Community through partnerships with <strong>5 external Veteran Organizations</strong>, securing additional resources such as flag disposal services, mental health conferences, and community events. <br><br>
-•&nbsp;&nbsp;Organized and supported <strong>10 campus-wide veteran engagement events</strong>, including resource fairs, peer networking sessions, and ceremonial observances, strengthening camaraderie and academic success among veteran students. <br><br>
-•&nbsp;&nbsp;Developed outreach materials and communication strategies that increased veteran participation in campus programs by <strong>35%</strong>, fostering a more inclusive and supportive environment. <br><br>
-•&nbsp;&nbsp;Provided one-on-one peer advising to <strong>50+ veterans</strong>, guiding them through academic planning, resource navigation, and community involvement, directly contributing to higher retention and graduation rates. <br><br>
-•&nbsp;&nbsp;Collaborated with faculty and administration to advocate for veteran-specific accommodations and resources, ensuring equitable access to education and reinforcing RRCC’s commitment to veteran success.
-
- </p>
-<h5 class="experience" style="font-family: 'Lato', sans-serif;">
-ESIIL STARS RESEARCH INTERN
-<br>
-Earth Data Science & Colorado Hydrology <br>
-MAY 2025-AUG 2025
-</h5>
-<p class="experienceContent">
-•&nbsp;&nbsp;Conducted advanced Earth Data Science research on Colorado’s hydrology as part of the ESIIL STARS fellowship, integrating GIS workflows with large-scale datasets. <br><br>
-•&nbsp;&nbsp;Processed and analyzed over <strong>10,000 hydrological tabular data records
-
-</strong>, including streamflow, snow water equiviliency (SWE)
-and elevation datasets across Colorado’s major watersheds. <br><br>
-•&nbsp;&nbsp;Developed reproducible workflows using <strong>Python</strong> with libraries such as <strong>Pandas, GeoPandas, Matplotlib, Plotly, and Folium</strong> to visualize hydrological trends and spatial equity impacts. <br><br>
-•&nbsp;&nbsp;Built interactive web maps and dashboards with <strong>HTML, CSS, and jQuery</strong>, enabling dynamic visualization of hydrological accessibility and watershed health. <br><br>
-•&nbsp;&nbsp;Automated batch processing scripts to streamline data cleaning, unit conversions, and cartographic labeling, reducing manual workload by <strong>40%</strong> and ensuring reproducibility across multiple case studies. <br><br>
-•&nbsp;&nbsp;Produced <strong>12 high-quality hydrology maps</strong> and <strong>5 interactive dashboards</strong> that synthesized government datasets (USGS, NOAA, Census) with equity-focused analysis, supporting actionable insights for Colorado water resource management.
-</p>
-
-
-<!-- Container (Portfolio Section) -->
-<br>
-<div class="w3-content w3-container w3-padding-64" id="portfolio">
-<h3 class="w3-center">Products</h3>
-<p class="w3-center">Below are examples of GIS products I have created, showcasing a range of scenarios and applications. While I would love to share work from my time in the Marine Corps, the classified nature of my role prevents me from doing so.</p>
-<p class="w3-center">Click on the images to enlarge them.</p>
-<!-- Responsive Grid -->
-<div class="w3-row-padding w3-center">
-<div class="w3-col m3">
-<img src="https://i.postimg.cc/cLHTXgkx/phoenix.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Travel Cost Analysis">
-</div>
-<div class="w3-col m3">
-<img src="https://i.postimg.cc/x1cyKrqq/RSLAB-3.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Viewshed Analysis">
-</div>
-<div class="w3-col m3">
-<img src="https://i.postimg.cc/q4fVvkS9/GIS-4850-Mini-2.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Inverse Weight Distancing Analysis">
-</div>
-<div class="w3-col m3">
-<img src="https://i.postimg.cc/MGLLybWJ/GIS-2250-Mini-Proj-2.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Denver Obesity Map">
-</div>
-</div>
-<div class="w3-row-padding w3-center w3-section">
-<div class="w3-col m3">
-<img src="https://i.postimg.cc/4N8Q74fr/RSlab3-1.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Contour Line, Elevation, and Hillshade Analysis">
-</div>
-<div class="w3-col m3">
-<img src="https://i.postimg.cc/tT7JMBLf/difficulty.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Ski Difficulty Analysis">
-</div>
-<div class="w3-col m3">
-<img src="https://i.postimg.cc/Jnt5MVy5/weighted.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Ski Resort Suitability Analysis">
-</div>
-<div class="w3-col m3">
-<img src="https://i.postimg.cc/sxHnnMhL/damlocation.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Multi Water Shed Analysis">
-</div>
-</div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about-section" onclick="closeMobile()">Background</a>
+  <a href="#experience-section" onclick="closeMobile()">Experience</a>
+  <a href="#products-section" onclick="closeMobile()">Products</a>
+  <a href="#map-section" onclick="closeMobile()">Map</a>
+  <a href="#contact-section" onclick="closeMobile()">Contact</a>
 </div>
 
-<div id="modal01" class="w3-modal" onclick="this.style.display='none'">
-  <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
-  <div class="w3-modal-content w3-animate-zoom">
-    <img id="img01" style="width:100%">
-    <p id="caption" class="w3-opacity w3-large"></p>
+<!-- HERO -->
+<div id="home">
+  <div class="hero-content">
+    <div class="hero-tag">Geospatial Analyst &amp; Marine Veteran</div>
+    <h1 class="hero-name">Kevin <span>E.</span><br>Morales</h1>
+    <p class="hero-subtitle">Veteran-trained geospatial analyst bridging GIS, remote sensing, data science, and spatial engineering — delivering insight-driven solutions across government, environmental, infrastructure, and private-sector industries.</p>
+    <div class="hero-badges">
+      <span class="badge">Prev. TS/SCI Holder</span>
+      <span class="badge">GIS Analysis</span>
+      <span class="badge">Remote Sensing</span>
+      <span class="badge">Python / GeoPandas</span>
+      <span class="badge">HTML / CSS / JS</span>
+      <span class="badge">SQL</span>
+      <span class="badge">6 Yrs USMC</span>
+      <span class="badge">ESIIL STARS Intern</span>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <i class="fa fa-chevron-down"></i>
+    SCROLL
   </div>
 </div>
 
-<p id=interactivemap></p>
-<br>
+<!-- ABOUT -->
+<div id="about-section">
+  <section>
+    <div class="about-img-wrap">
+      <img src="https://i.postimg.cc/fZszLRY6/prof-photo.jpg" alt="Kevin E. Morales">
+    </div>
+    <div>
+      <div class="section-label">Background</div>
+      <h2 class="section-title">Who I Am</h2>
+      <div class="section-divider"></div>
+      <p class="bio-text">Geospatial analyst and U.S. Marine Corps veteran with a background spanning imagery intelligence, spatial data science, and GIS development. I bring a multidisciplinary skill set applicable across government agencies, environmental consulting, urban planning, agriculture, infrastructure, and tech — with hands-on experience in Python, remote sensing, web mapping, and data visualization. I focus on turning complex spatial datasets into clear, actionable outputs.</p>
 
-<h3 class="w3-center">Interactive Map Using GeoJSON</h3>
+      <div class="quals-grid">
+        <div class="qual-item">
+          <i class="fa fa-graduation-cap qual-icon"></i>
+          <div class="qual-text">
+            <strong>Education</strong>
+            Metropolitan State University — Bachelor's in Geography &amp; GIS, GIS Certificate (Spring 2026)
+          </div>
+        </div>
+        <div class="qual-item">
+          <i class="fa fa-shield qual-icon"></i>
+          <div class="qual-text">
+            <strong>Clearance</strong>
+            Previous TS/SCI Holder
+          </div>
+        </div>
+        <div class="qual-item">
+          <i class="fa fa-crosshairs qual-icon"></i>
+          <div class="qual-text">
+            <strong>Military Training</strong>
+            Tactical Imagery Analysis Course, USMC 2021 — 3 years Imagery/Geospatial Analyst
+          </div>
+        </div>
+        <div class="qual-item">
+          <i class="fa fa-flask qual-icon"></i>
+          <div class="qual-text">
+            <strong>Research</strong>
+            ESIIL STARS Intern — Earth Data Science &amp; Colorado Hydrology (2025)
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 
-<h6 class="w3-center"><a href="https://opendata-geospatialdenver.hub.arcgis.com/" style="text-align: center; margin-right:auto; margin-left: auto;"> Denver Open Data Catalog </a></h6>
+<!-- STATS BANNER -->
+<div class="stats-banner">
+  <div class="stats-grid">
+    <div>
+      <span class="stat-num">8</span>
+      <div class="stat-label">Deployments Supported</div>
+    </div>
+    <div>
+      <span class="stat-num">3</span>
+      <div class="stat-label">Squadron Elements Trained</div>
+    </div>
+    <div>
+      <span class="stat-num">300+</span>
+      <div class="stat-label">Intelligence Products</div>
+    </div>
+    <div>
+      <span class="stat-num">150+</span>
+      <div class="stat-label">Mission Briefs Conducted</div>
+    </div>
+  </div>
+</div>
 
-<h6 class="w3-center"> Data from: <a href="https://opendata-geospatialdenver.hub.arcgis.com/datasets/7550fb747ce14f938d7afd68ab43233d_75/explore?location=39.777243%2C-104.767392%2C9.92"> Adult Obesity 2014-2016 </a> </h6>
+<!-- EXPERIENCE -->
+<div id="experience-section">
+  <section>
+    <div class="section-label">Career History</div>
+    <h2 class="section-title">Detailed Experience</h2>
+    <div class="section-divider"></div>
 
-<br>
-<div id="map"></div>
-<br><br>
-<h3 class="w3-center">Interactive Plots and Maps (Python Scripts Outputted As HTML Files)<br></h3>
-<h5 class="w3-center">View Full Study Link At:  <a href="https://lakevs14.github.io/ESIIL/" target="_blank" style="text-decoration:none; font-family: 'Lato', sans-serif; font-weight:bold;">
-     <u><i>Spatiotemporal Trends in Colorado’s Hydrologic Systems</i></u>
-  </a>
+    <div class="exp-accordion" id="exp1">
+      <div class="exp-header" onclick="toggleExp('exp1')">
+        <div class="exp-header-left">
+          <div class="exp-role">Infantry / Combat Marksman Trainer &amp; Coach</div>
+          <div class="exp-meta">USMC · 2017 – 2023</div>
+        </div>
+        <i class="fa fa-chevron-down exp-chevron"></i>
+      </div>
+      <div class="exp-body">
+        <ul>
+          <li>Oversaw marksmanship development of <strong>20+ combat marksmanship coaches</strong>, ensuring unit-wide proficiency.</li>
+          <li>Conducted <strong>30+ live-fire training exercises</strong>, ensuring proficiency in weapon systems under combat conditions.</li>
+          <li>Mentored <strong>30+ junior Marines</strong> in leadership, discipline, and marksmanship, fostering cohesive, deployment-ready units.</li>
+          <li>Contributed to quick reaction force readiness for Special Purpose MAGTF operations in the Middle East.</li>
+          <li>Standardized training protocols that reduced qualification failures by <strong>15%</strong>, improving overall unit readiness.</li>
+        </ul>
+      </div>
+    </div>
 
-</h5>
-<br>
-<h5 style="font-weight: bold; text-align: center;">SWE Harmonic Plot</h5>
-<br>
-<div style="display: flex; justify-content: center;">
-  <iframe src="https://lakevs14.github.io/ESIIL/swe_harmonic.html" style="width:80%; height:900px; border:none;"></iframe>
-</div>
-<br><br>
-<div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-  <h5 style="font-weight: bold; text-align: center;">
-    Colorado Population, SWE, Discharge, and Irrigation Change Map
-  </h5>
-  <br>
-  <iframe src="https://lakevs14.github.io/ESIIL/final_map.html" 
-          style="width:60%; height:900px; border:none;"></iframe>
-</div>
-<br><br>
-<div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-  <h5 style="font-weight: bold; text-align: center;">Streamflow Regression Plot (cf3)</h5>
-  <iframe src="https://lakevs14.github.io/ESIIL/discharge_regression.html" style="width:80%; height:900px; border:none;"></iframe>
-</div>
-<br><br>
-<!-- Modal for full size images on click-->
+    <div class="exp-accordion" id="exp2">
+      <div class="exp-header" onclick="toggleExp('exp2')">
+        <div class="exp-header-left">
+          <div class="exp-role">Geospatial Intelligence Imagery Analyst — Sergeant</div>
+          <div class="exp-meta">MCAS Yuma · MAG-13 / VMFA-122 · 2020 – 2023</div>
+        </div>
+        <i class="fa fa-chevron-down exp-chevron"></i>
+      </div>
+      <div class="exp-body">
+        <ul>
+          <li>Produced <strong>300+ high-quality intelligence products</strong> and delivered <strong>150+ mission-critical briefs</strong> supporting 600 personnel in the 13th MEU.</li>
+          <li>Mentored <strong>seven analysts</strong> in imagery exploitation, cartographic design, and spatial analysis workflows.</li>
+          <li>Contributed to <strong>10 training deployments</strong> and one strategic South China Sea/Pacific deployment.</li>
+          <li>Integrated multi-source imagery to identify terrain features, infrastructure vulnerabilities, and adversary movements.</li>
+          <li>Developed standardized geospatial workflows reducing analysis turnaround time by <strong>20%</strong>.</li>
+          <li>Collaborated with pilots, intelligence officers, and ground units to synchronize imagery analysis with mission objectives.</li>
+        </ul>
+      </div>
+    </div>
 
-<!-- Third Parallax Image with Portfolio Text -->
-<p id="contact"></p>
-<div class="bgimg-3 w3-display-container w3-opacity-min">
-<div class="w3-display-middle">
-<span class="w3-xxlarge w3-text-white w3-wide" style="text-align:center;">Contact Info</span>
+    <div class="exp-accordion" id="exp3">
+      <div class="exp-header" onclick="toggleExp('exp3')">
+        <div class="exp-header-left">
+          <div class="exp-role">Classification Security Management Clerk</div>
+          <div class="exp-meta">MCAS Yuma · MAG-13 / VMFA-122 · 2020 – 2023</div>
+        </div>
+        <i class="fa fa-chevron-down exp-chevron"></i>
+      </div>
+      <div class="exp-body">
+        <ul>
+          <li>Managed <strong>700+ security clearance records</strong> in strict compliance with DoD protocols.</li>
+          <li>Reduced administrative errors by <strong>30%</strong> through systematic audits and digital tracking processes.</li>
+          <li>Cut clearance processing time by <strong>25%</strong> through standardized workflows, enabling rapid operational response.</li>
+          <li>Coordinated with <strong>20+ officers and staff</strong> to maintain clearance accuracy across multiple units.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-accordion" id="exp4">
+      <div class="exp-header" onclick="toggleExp('exp4')">
+        <div class="exp-header-left">
+          <div class="exp-role">Veteran Peer Advisor</div>
+          <div class="exp-meta">Red Rocks Community College · Jan 2024 – Aug 2024</div>
+        </div>
+        <i class="fa fa-chevron-down exp-chevron"></i>
+      </div>
+      <div class="exp-body">
+        <ul>
+          <li>Processed benefits for <strong>300+ veteran students</strong>, ensuring timely funding and enrollment access.</li>
+          <li>Digitized intake forms and coordinated with financial aid staff, reducing processing time by <strong>25%</strong>.</li>
+          <li>Expanded the Veteran Community through partnerships with <strong>5 external Veteran Organizations</strong>.</li>
+          <li>Provided one-on-one advising to <strong>50+ veterans</strong>, contributing to higher retention and graduation rates.</li>
+          <li>Increased veteran participation in campus programs by <strong>35%</strong> through targeted outreach materials.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-accordion" id="exp5">
+      <div class="exp-header" onclick="toggleExp('exp5')">
+        <div class="exp-header-left">
+          <div class="exp-role">ESIIL STARS Research Intern — Earth Data Science &amp; Colorado Hydrology</div>
+          <div class="exp-meta">May 2025 – Aug 2025</div>
+        </div>
+        <i class="fa fa-chevron-down exp-chevron"></i>
+      </div>
+      <div class="exp-body">
+        <ul>
+          <li>Processed and analyzed <strong>10,000+ hydrological records</strong> — streamflow, SWE, and elevation data across Colorado's major watersheds.</li>
+          <li>Built reproducible workflows using <strong>Python (Pandas, GeoPandas, Matplotlib, Plotly, Folium)</strong> to visualize hydrological trends.</li>
+          <li>Constructed interactive web maps and dashboards with <strong>HTML, CSS, and jQuery</strong>.</li>
+          <li>Automated batch processing scripts reducing manual workload by <strong>40%</strong>.</li>
+          <li>Produced <strong>12 hydrology maps</strong> and <strong>5 interactive dashboards</strong> synthesizing USGS, NOAA, and Census datasets.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-accordion" id="exp6">
+      <div class="exp-header" onclick="toggleExp('exp6')">
+        <div class="exp-header-left">
+          <div class="exp-role">Advanced ESIIL STARS Research Intern — Earth Data Science</div>
+          <div class="exp-meta">May 2026 – July 2026</div>
+        </div>
+        <i class="fa fa-chevron-down exp-chevron"></i>
+      </div>
+      <div class="exp-body">
+        <ul>
+          <li>Selected to return as an <strong>Advanced Research Intern</strong>, building on prior ESIIL STARS research with expanded responsibilities in data science, mentorship, and predictive modeling.</li>
+          <li>Serving as a <strong>peer mentor</strong> to incoming STARS interns, providing guidance on geospatial workflows, Python best practices, and research methodology.</li>
+          <li>Conducting <strong>predictive data analysis</strong> using machine learning algorithms to model environmental and hydrological trends across large-scale spatial datasets.</li>
+          <li>Applying ML libraries including <strong>Scikit-learn, TensorFlow, and XGBoost</strong> for regression, classification, and time-series forecasting on geospatial and tabular data.</li>
+          <li>Leveraging <strong>Pandas, NumPy, GeoPandas, Matplotlib, Plotly, and Folium</strong> for data processing, spatial analysis, and interactive visualization.</li>
+          <li>Developing reproducible, well-documented research pipelines that support collaboration and knowledge transfer across the ESIIL research community.</li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
 </div>
+
+<!-- PRODUCTS -->
+<div id="products-section">
+  <section>
+    <div class="section-label">Work Samples</div>
+    <h2 class="section-title">Products &amp; Projects</h2>
+    <div class="section-divider"></div>
+    <p class="products-intro">A selection of geospatial analysis, remote sensing, and data science projects. Classified work from my time in the Marine Corps is not included.</p>
+
+    <!-- Featured Web Projects -->
+    <div class="web-projects">
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-icon"><i class="fa fa-project-diagram"></i></div>
+          <div class="project-card-title">Denver Network Analysis</div>
+        </div>
+        <div class="project-card-body">
+          <div class="project-tags">
+            <span class="tag">Network Analysis</span>
+            <span class="tag">Routing</span>
+            <span class="tag">GIS</span>
+          </div>
+          <p class="project-desc">A capstone network analysis of Denver's transportation infrastructure. Applies graph-based routing algorithms to evaluate service coverage, connectivity, and spatial accessibility across the metro area — translating large-scale road and transit data into actionable planning insights.</p>
+          <a href="https://lakevs14.github.io/Capstone-Final/" target="_blank" class="project-link">
+            View Project <i class="fa fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-icon"><i class="fa fa-tint"></i></div>
+          <div class="project-card-title">Colorado Hydrology &amp; ML</div>
+        </div>
+        <div class="project-card-body">
+          <div class="project-tags">
+            <span class="tag">Machine Learning</span>
+            <span class="tag">Hydrology</span>
+            <span class="tag">Python</span>
+            <span class="tag">Spatiotemporal</span>
+          </div>
+          <p class="project-desc">An Earth Data Science study integrating machine learning models with geospatial hydrological data across Colorado. Employs regression and harmonic analysis to predict streamflow and snow water equivalency (SWE) trends — supporting water resource management through data-driven forecasting.</p>
+          <a href="https://lakevs14.github.io/Geospatial-Study/" target="_blank" class="project-link">
+            View Study <i class="fa fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-card-header">
+          <div class="project-icon"><i class="fa fa-fire"></i></div>
+          <div class="project-card-title">Hammer Fire — Remote Sensing Analysis</div>
+        </div>
+        <div class="project-card-body">
+          <div class="project-tags">
+            <span class="tag">Remote Sensing</span>
+            <span class="tag">NBR / dNBR</span>
+            <span class="tag">Multispectral</span>
+            <span class="tag">Burn Severity</span>
+          </div>
+          <p class="project-desc">A post-fire severity analysis using multispectral satellite imagery. Applies Normalized Burn Ratio (NBR) and differenced NBR (dNBR) techniques to quantify burn severity and map vegetation loss across the Hammer Fire perimeter — demonstrating applied remote sensing for wildfire assessment and environmental monitoring.</p>
+          <a href="https://lakevs14.github.io/Hammer-Fire-/" target="_blank" class="project-link">
+            View Analysis <i class="fa fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- GIS Map Gallery -->
+    <div class="section-label" style="margin-top:2rem;">GIS Map Gallery</div>
+    <p style="font-size:0.87rem; color:var(--muted); margin-bottom:1.25rem;">Click any image to enlarge.</p>
+
+    <div class="gallery-grid">
+      <div class="gallery-item" onclick="openModal(this)">
+        <img src="https://i.postimg.cc/cLHTXgkx/phoenix.jpg" alt="Travel Cost Analysis">
+        <div class="gallery-overlay"><span class="gallery-caption">Travel Cost Analysis</span></div>
+      </div>
+      <div class="gallery-item" onclick="openModal(this)">
+        <img src="https://i.postimg.cc/x1cyKrqq/RSLAB-3.jpg" alt="Viewshed Analysis">
+        <div class="gallery-overlay"><span class="gallery-caption">Viewshed Analysis</span></div>
+      </div>
+      <div class="gallery-item" onclick="openModal(this)">
+        <img src="https://i.postimg.cc/q4fVvkS9/GIS-4850-Mini-2.png" alt="Inverse Weight Distancing Analysis">
+        <div class="gallery-overlay"><span class="gallery-caption">Inverse Weight Distancing (IDW)</span></div>
+      </div>
+      <div class="gallery-item" onclick="openModal(this)">
+        <img src="https://i.postimg.cc/MGLLybWJ/GIS-2250-Mini-Proj-2.png" alt="Denver Obesity Map">
+        <div class="gallery-overlay"><span class="gallery-caption">Denver Obesity Mapping</span></div>
+      </div>
+      <div class="gallery-item" onclick="openModal(this)">
+        <img src="https://lakevs14.github.io/ProfWeb1/3250lab4_1.jpg" alt="Portland Oregon Topography">
+        <div class="gallery-overlay"><span class="gallery-caption">Portland Oregon Topography</span></div>
+      </div>
+      <div class="gallery-item" onclick="openModal(this)">
+        <img src="https://i.postimg.cc/tT7JMBLf/difficulty.jpg" alt="Ski Difficulty Analysis">
+        <div class="gallery-overlay"><span class="gallery-caption">Ski Difficulty Analysis</span></div>
+      </div>
+      <div class="gallery-item" onclick="openModal(this)">
+        <img src="https://i.postimg.cc/Jnt5MVy5/weighted.jpg" alt="Ski Resort Suitability Analysis">
+        <div class="gallery-overlay"><span class="gallery-caption">Ski Resort Suitability</span></div>
+      </div>
+      <div class="gallery-item" onclick="openModal(this)">
+        <img src="https://i.postimg.cc/sxHnnMhL/damlocation.jpg" alt="Multi Watershed Analysis">
+        <div class="gallery-overlay"><span class="gallery-caption">Multi-Watershed Analysis</span></div>
+      </div>
+    </div>
+
+  </section>
 </div>
-<!-- Container (Contact Section) -->
-<div class="w3-content w3-container w3-padding-64">
-<div class="w3-row w3-padding-32 w3-section">
-<div class="w3-col m4 w3-container">
-<img src="https://www.lakewood.org/files/assets/public/v/1/community-resources/parks/kendrick-park/kendrick-park-playground.jpg" class="w3-image w3-round" style="width:100%">
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+  <div class="modal-inner" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()"><i class="fa fa-times"></i></button>
+    <img id="modalImg" src="" alt="">
+    <p class="modal-cap" id="modalCap"></p>
+  </div>
 </div>
-<div class="w3-col m8 w3-panel">
-<div class="w3-large w3-margin-bottom">
-<i class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Lakewood, Colorado<br>
-<i class="fa fa-phone fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Phone: 720-277-4251<br>
-<i class="fa fa-envelope fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Email: km38191@gmail.com<br>
-<i class="fa fa-linkedin fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> <a href="https://www.linkedin.com/in/kevin-morales-69816b288/" target="_blank" rel="noopener noreferrer"> LinkedIn </a> <br>
+
+<!-- INTERACTIVE MAP -->
+<div id="map-section">
+  <section>
+    <div class="section-label">GeoJSON / Leaflet</div>
+    <h2 class="section-title">Interactive Map</h2>
+    <div class="section-divider"></div>
+    <p class="bio-text" style="margin-bottom:1.5rem;">Denver adult obesity rates (2014–2016) overlaid with open civic datasets. Data sourced from the <a href="https://opendata-geospatialdenver.hub.arcgis.com/" style="color:var(--accent);">Denver Open Data Catalog</a>.</p>
+    <div id="map"></div>
+    <p class="map-note">Toggle layers using the control in the top-right corner of the map.</p>
+
+    <!-- Python Outputs -->
+    <div class="iframe-stack">
+      <div class="iframe-wrap">
+        <div class="iframe-label">SWE Harmonic Plot</div>
+        <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.75rem;">Harmonic regression applied to Snow Water Equivalency time-series data across Colorado watersheds — revealing seasonal patterns and long-term trends.</p>
+        <iframe src="https://lakevs14.github.io/ESIIL/swe_harmonic.html" loading="lazy" title="SWE Harmonic Plot"></iframe>
+      </div>
+      <div class="iframe-wrap">
+        <div class="iframe-label">Population, SWE, Discharge &amp; Irrigation Change Map</div>
+        <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.75rem;">An interactive choropleth synthesizing demographic, hydrological, and agricultural datasets — exploring equity dimensions of water access in Colorado.</p>
+        <iframe src="https://lakevs14.github.io/ESIIL/final_map.html" loading="lazy" title="Colorado Final Map"></iframe>
+      </div>
+      <div class="iframe-wrap">
+        <div class="iframe-label">Streamflow Regression Plot</div>
+        <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.75rem;">Statistical regression analysis of cubic feet per second (cf³) discharge rates across major Colorado river gauges.</p>
+        <iframe src="https://lakevs14.github.io/ESIIL/discharge_regression.html" loading="lazy" title="Discharge Regression"></iframe>
+      </div>
+    </div>
+
+  </section>
 </div>
+
+<!-- CONTACT -->
+<div id="contact-section">
+  <section>
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title">Contact</h2>
+    <div class="section-divider"></div>
+    <div class="contact-grid">
+      <img src="https://www.lakewood.org/files/assets/public/v/1/community-resources/parks/kendrick-park/kendrick-park-playground.jpg" alt="Lakewood Colorado" class="contact-img">
+      <div>
+        <ul class="contact-list">
+          <li class="contact-item">
+            <div class="contact-icon"><i class="fa fa-map-marker"></i></div>
+            <span>Lakewood, Colorado</span>
+          </li>
+          <li class="contact-item">
+            <div class="contact-icon"><i class="fa fa-phone"></i></div>
+            <a href="tel:7202774251">720-277-4251</a>
+          </li>
+          <li class="contact-item">
+            <div class="contact-icon"><i class="fa fa-envelope"></i></div>
+            <a href="mailto:km38191@gmail.com">km38191@gmail.com</a>
+          </li>
+          <li class="contact-item">
+            <div class="contact-icon"><i class="fa-brands fa-linkedin"></i></div>
+            <a href="https://www.linkedin.com/in/kevin-morales-69816b288/" target="_blank" rel="noopener">LinkedIn Profile</a>
+          </li>
+        </ul>
+        <a href="#home" class="back-top"><i class="fa fa-arrow-up"></i> Back to Top</a>
+      </div>
+    </div>
+  </section>
 </div>
-</div>
-<div style="text-align:center; background-color:gray; padding:20px;">
-<a href="#home" class="w3-button w3-light-grey"> <i class="fa fa-arrow-up w3-margin-right"></i>To the top </a>
-</div>
+
+<footer>
+  &copy; 2025 Kevin E. Morales &nbsp;·&nbsp; Geospatial Analyst &amp; Marine Veteran &nbsp;·&nbsp; Lakewood, CO
+</footer>
+
 <script>
-// Modal Image Gallery
-function onClick(element) {
-document.getElementById("img01").src = element.src;
-document.getElementById("modal01").style.display = "block";
-var captionText = document.getElementById("caption");
-captionText.innerHTML = element.alt;
+// ── MOBILE NAV ──
+function toggleMobile() {
+  document.getElementById('mobileMenu').classList.toggle('open');
 }
-// Change style of navbar on scroll
-window.onscroll = function() {myFunction()};
-function myFunction() {
-var navbar = document.getElementById("myNavbar");
-if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
-} else {
-navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
+function closeMobile() {
+  document.getElementById('mobileMenu').classList.remove('open');
 }
+
+// ── ACCORDION ──
+function toggleExp(id) {
+  const el = document.getElementById(id);
+  const body = el.querySelector('.exp-body');
+  const isOpen = el.classList.contains('open');
+  // close all
+  document.querySelectorAll('.exp-accordion').forEach(a => {
+    a.classList.remove('open');
+    a.querySelector('.exp-body').style.display = 'none';
+  });
+  if (!isOpen) {
+    el.classList.add('open');
+    body.style.display = 'block';
+  }
 }
-// Used to toggle the menu on small screens when clicking on the menu button
-function toggleFunction() {
-var x = document.getElementById("navDemo");
-if (x.className.indexOf("w3-show") == -1) { x.className += " w3-show"; } 
-else { x.className = x.className.replace(" w3-show", ""); }
+
+// ── MODAL ──
+function openModal(el) {
+  const img = el.querySelector('img');
+  document.getElementById('modalImg').src = img.src;
+  document.getElementById('modalCap').textContent = img.alt;
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
-$(document).ready(function(){
-$(".experience").click(function(){
-$(this).next(".experienceContent").slideToggle(500); 
-});
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── LEAFLET MAP ──
+$(document).ready(function() {
+  var map = L.map('map').setView([0, 0], 11);
+  var OSMTiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>' }).addTo(map);
+  var HOTOSMTiles = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap contributors, Tiles by HOT' });
+  var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: 'Map data © OpenStreetMap | Style © OpenTopoMap (CC-BY-SA)' });
+  var baseMaps = { "OpenStreetMap": OSMTiles, "Humanitarian OSM": HOTOSMTiles, "OpenTopoMap": OpenTopoMap };
+  var layerControl = L.control.layers(baseMaps, null).addTo(map);
+
+  function style1(feature) {
+    var d = feature.properties.PERCENT_OBESE_;
+    var color = d > 40 ? 'rgb(12,44,132)' : d > 35 ? 'rgb(34,94,168)' : d > 30 ? 'rgb(29,145,192)' : d > 25 ? 'rgb(65,182,196)' : d > 20 ? 'rgb(127,205,187)' : d > 15 ? 'rgb(199,233,180)' : d > 10 ? 'rgb(237,248,177)' : 'rgb(255,255,217)';
+    return { fillColor: color, weight: 1, opacity: 1, color: 'white', dashArray: '3', fillOpacity: 0.7 };
+  }
+
+  $.getJSON('./denver_obesity.geojson', function(data) {
+    var layer = L.geoJSON(data, { style: style1, onEachFeature: function(feature, layer) { layer.bindPopup("Obesity Rate: " + feature.properties.PERCENT_OBESE_ + "%"); } }).addTo(map);
+    map.panTo(layer.getBounds().getCenter());
+    layerControl.addOverlay(layer, "Denver Obesity 2014–2016");
+  });
+  $.getJSON('https://services1.arcgis.com/zdB7qR0BtYrg0Xpl/arcgis/rest/services/ODC_TRANS_TRAFFICCALMING_P2/FeatureServer/383/query?outFields=*&where=1%3D1&f=geojson', function(data) { layerControl.addOverlay(L.geoJSON(data), "Bikeway Traffic Calming"); });
+  $.getJSON('https://services1.arcgis.com/zdB7qR0BtYrg0Xpl/arcgis/rest/services/ODC_PARK_RECCENTER_P/FeatureServer/92/query?outFields=*&where=1%3D1&f=geojson', function(data) { layerControl.addOverlay(L.geoJSON(data), "Park & Rec Centers"); });
+
+  var legend = L.control({ position: 'bottomright' });
+  legend.onAdd = function() {
+    var div = L.DomUtil.create('div', 'info legend');
+    div.style.cssText = 'background:white;padding:10px;border-radius:6px;font-family:monospace;font-size:11px;';
+    var colors = ['rgb(255,255,217)','rgb(237,248,177)','rgb(199,233,180)','rgb(127,205,187)','rgb(65,182,196)','rgb(29,145,192)','rgb(34,94,168)','rgb(12,44,132)'];
+    var labels = ['0–10%','10–15%','15–20%','20–25%','25–30%','30–35%','35–40%','40%+'];
+    div.innerHTML = '<strong style="display:block;margin-bottom:6px;">Adult Obesity<br>Denver 2014–2016</strong>';
+    for (var i = 0; i < colors.length; i++) {
+      div.innerHTML += '<i style="display:inline-block;width:12px;height:12px;background:' + colors[i] + ';margin-right:6px;vertical-align:middle;"></i>' + labels[i] + '<br>';
+    }
+    return div;
+  };
+  legend.addTo(map);
 });
 </script>
+
 </body>
 </html>
-
