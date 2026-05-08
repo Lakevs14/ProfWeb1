@@ -15,17 +15,17 @@
 <style>
   :root {
     --ink: #0e0f13;
-    --sand: #e8dcc8;
-    --sand-light: #f4ede0;
-    --olive: #4a5240;
-    --olive-mid: #6b7560;
-    --olive-light: #8f9a82;
-    --accent: #c8873a;
-    --accent-light: #e8a95a;
-    --white: #fafaf8;
-    --muted: #5c5e60;
-    --border: rgba(74,82,64,0.2);
-    --card-bg: rgba(255,255,255,0.65);
+    --sand: #dcdff0;
+    --sand-light: #eceef8;
+    --olive: #3a3d52;
+    --olive-mid: #5a5f7a;
+    --olive-light: #8287a8;
+    --accent: #6b5fd4;
+    --accent-light: #8f84e8;
+    --white: #f5f6fc;
+    --muted: #4e5068;
+    --border: rgba(107,95,212,0.2);
+    --card-bg: rgba(245,246,252,0.65);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,7 +40,6 @@
     overflow-x: hidden;
   }
 
-  /* ── GRAIN OVERLAY ── */
   body::before {
     content: '';
     position: fixed;
@@ -51,7 +50,6 @@
     opacity: 0.4;
   }
 
-  /* ── NAV ── */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -63,48 +61,40 @@
     justify-content: space-between;
     padding: 0 clamp(1rem, 4vw, 3rem);
     height: 60px;
-    border-bottom: 1px solid rgba(200,135,58,0.3);
+    border-bottom: 1px solid rgba(107,95,212,0.35);
   }
 
   .nav-logo {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.4rem;
     letter-spacing: 3px;
-    color: var(--accent);
+    color: var(--accent-light);
     text-decoration: none;
   }
 
-  .nav-links {
-    display: flex;
-    gap: 0.25rem;
-    list-style: none;
-  }
+  .nav-links { display: flex; gap: 0.25rem; list-style: none; }
 
   .nav-links a {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: var(--sand);
+    color: #d8dbf0;
     text-decoration: none;
     padding: 6px 10px;
     border-radius: 4px;
     transition: color 0.2s, background 0.2s;
   }
 
-  .nav-links a:hover {
-    color: var(--accent);
-    background: rgba(200,135,58,0.1);
-  }
+  .nav-links a:hover { color: var(--accent-light); background: rgba(107,95,212,0.12); }
 
-  /* Hamburger */
   .nav-toggle {
     display: none;
     background: none;
-    border: 1px solid rgba(200,135,58,0.5);
+    border: 1px solid rgba(107,95,212,0.5);
     border-radius: 4px;
     padding: 6px 10px;
-    color: var(--accent);
+    color: var(--accent-light);
     cursor: pointer;
     font-size: 1rem;
   }
@@ -116,7 +106,7 @@
     background: rgba(14,15,19,0.97);
     z-index: 999;
     padding: 1rem 2rem 2rem;
-    border-bottom: 1px solid rgba(200,135,58,0.3);
+    border-bottom: 1px solid rgba(107,95,212,0.3);
   }
 
   .mobile-menu.open { display: block; }
@@ -127,23 +117,19 @@
     font-size: 0.85rem;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--sand);
-    text-decoration: none;
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
+    color: #d8dbf0;
   }
 
-  .mobile-menu a:hover { color: var(--accent); }
+  .mobile-menu a:hover { color: var(--accent-light); }
 
   @media (max-width: 768px) {
     .nav-links { display: none; }
     .nav-toggle { display: block; }
   }
 
-  /* ── HERO ── */
   #home {
     min-height: 100vh;
-    background: linear-gradient(160deg, #0e0f13 0%, #1e2118 45%, #2a2e20 100%);
+    background: linear-gradient(160deg, #0e0f13 0%, #161428 45%, #1e1a38 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -162,14 +148,13 @@
     opacity: 0.12;
   }
 
-  /* coordinate grid lines */
   #home::after {
     content: '';
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(200,135,58,0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(200,135,58,0.06) 1px, transparent 1px);
+      linear-gradient(rgba(107,95,212,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(107,95,212,0.08) 1px, transparent 1px);
     background-size: 60px 60px;
   }
 
@@ -180,7 +165,7 @@
     font-size: clamp(0.65rem, 2vw, 0.75rem);
     letter-spacing: 4px;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--accent-light);
     margin-bottom: 1.5rem;
     display: inline-flex;
     align-items: center;
@@ -192,7 +177,7 @@
     display: block;
     width: 30px;
     height: 1px;
-    background: var(--accent);
+    background: var(--accent-light);
   }
 
   h1.hero-name {
@@ -204,7 +189,7 @@
     margin-bottom: 1rem;
   }
 
-  h1.hero-name span { color: var(--accent); }
+  h1.hero-name span { color: var(--accent-light); }
 
   .hero-subtitle {
     font-size: clamp(0.9rem, 2.5vw, 1.1rem);
@@ -214,13 +199,7 @@
     font-weight: 300;
   }
 
-  .hero-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-    margin-bottom: 3rem;
-  }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 3rem; }
 
   .badge {
     font-family: 'JetBrains Mono', monospace;
@@ -228,7 +207,7 @@
     letter-spacing: 1.5px;
     text-transform: uppercase;
     padding: 4px 12px;
-    border: 1px solid rgba(200,135,58,0.4);
+    border: 1px solid rgba(107,95,212,0.45);
     border-radius: 2px;
     color: var(--accent-light);
   }
@@ -254,7 +233,6 @@
     50% { transform: translateX(-50%) translateY(6px); }
   }
 
-  /* ── SECTION SHELLS ── */
   section {
     padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 6vw, 5rem);
     max-width: 1200px;
@@ -279,17 +257,9 @@
     line-height: 1;
   }
 
-  .section-divider {
-    width: 60px;
-    height: 3px;
-    background: var(--accent);
-    margin-bottom: 2.5rem;
-  }
+  .section-divider { width: 60px; height: 3px; background: var(--accent); margin-bottom: 2.5rem; }
 
-  /* ── ABOUT ── */
-  #about-section {
-    background: var(--white);
-  }
+  #about-section { background: var(--white); }
 
   #about-section > section {
     display: grid;
@@ -302,11 +272,7 @@
     #about-section > section { grid-template-columns: 1fr; gap: 2rem; }
   }
 
-  .about-img-wrap {
-    position: relative;
-    padding-bottom: 14px;
-    padding-right: 14px;
-  }
+  .about-img-wrap { position: relative; padding-bottom: 14px; padding-right: 14px; }
 
   .about-img-wrap img {
     width: 100%;
@@ -321,8 +287,7 @@
   .about-img-wrap::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    right: 0;
+    bottom: 0; right: 0;
     width: calc(100% - 14px);
     height: calc(100% - 14px);
     border: 2px solid var(--accent);
@@ -331,18 +296,9 @@
     z-index: 0;
   }
 
-  .bio-text {
-    font-size: clamp(0.9rem, 1.8vw, 1rem);
-    color: var(--muted);
-    margin-bottom: 1.5rem;
-  }
+  .bio-text { font-size: clamp(0.9rem, 1.8vw, 1rem); color: var(--muted); margin-bottom: 1.5rem; }
 
-  .quals-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    margin-top: 1.5rem;
-  }
+  .quals-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1.5rem; }
 
   .qual-item {
     display: flex;
@@ -354,19 +310,13 @@
     border-radius: 0 4px 4px 0;
   }
 
-  .qual-icon {
-    color: var(--accent);
-    font-size: 1rem;
-    margin-top: 2px;
-    flex-shrink: 0;
-  }
+  .qual-icon { color: var(--accent); font-size: 1rem; margin-top: 2px; flex-shrink: 0; }
 
   .qual-text { font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
   .qual-text strong { color: var(--ink); display: block; font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2px; }
 
-  /* ── STATS BANNER ── */
   .stats-banner {
-    background: linear-gradient(135deg, var(--ink) 0%, #1a1e14 100%);
+    background: linear-gradient(135deg, #0e0f13 0%, #161428 100%);
     padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 6vw, 5rem);
   }
 
@@ -379,14 +329,12 @@
     text-align: center;
   }
 
-  @media (max-width: 640px) {
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  }
+  @media (max-width: 640px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
 
   .stat-num {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(3rem, 8vw, 5rem);
-    color: var(--accent);
+    color: var(--accent-light);
     line-height: 1;
     display: block;
   }
@@ -400,7 +348,6 @@
     margin-top: 0.5rem;
   }
 
-  /* ── EXPERIENCE ── */
   #experience-section { background: var(--sand-light); }
 
   .exp-accordion {
@@ -423,7 +370,6 @@
   }
 
   .exp-header:hover { background: var(--sand-light); }
-
   .exp-header-left { flex: 1; }
 
   .exp-role {
@@ -442,26 +388,12 @@
     margin-top: 3px;
   }
 
-  .exp-chevron {
-    color: var(--olive-mid);
-    transition: transform 0.3s;
-    flex-shrink: 0;
-    font-size: 0.85rem;
-  }
-
+  .exp-chevron { color: var(--olive-mid); transition: transform 0.3s; flex-shrink: 0; font-size: 0.85rem; }
   .exp-accordion.open .exp-chevron { transform: rotate(180deg); }
 
-  .exp-body {
-    display: none;
-    padding: 0 1.5rem 1.5rem;
-    border-top: 1px solid var(--border);
-  }
+  .exp-body { display: none; padding: 0 1.5rem 1.5rem; border-top: 1px solid var(--border); }
 
-  .exp-body ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 1rem;
-  }
+  .exp-body ul { list-style: none; padding: 0; margin-top: 1rem; }
 
   .exp-body li {
     font-size: clamp(0.85rem, 1.8vw, 0.93rem);
@@ -471,34 +403,14 @@
     border-bottom: 1px solid rgba(0,0,0,0.04);
   }
 
-  .exp-body li::before {
-    content: '›';
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-    font-size: 1.1rem;
-    line-height: 1.6;
-  }
-
+  .exp-body li::before { content: '›'; position: absolute; left: 0; color: var(--accent); font-size: 1.1rem; line-height: 1.6; }
   .exp-body li strong { color: var(--ink); }
 
-  /* ── PRODUCTS ── */
   #products-section { background: var(--white); }
 
-  .products-intro {
-    font-size: clamp(0.88rem, 1.8vw, 0.97rem);
-    color: var(--muted);
-    max-width: 700px;
-    margin-bottom: 2.5rem;
-  }
+  .products-intro { font-size: clamp(0.88rem, 1.8vw, 0.97rem); color: var(--muted); max-width: 700px; margin-bottom: 2.5rem; }
 
-  /* Web Projects */
-  .web-projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-  }
+  .web-projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
 
   .project-card {
     border: 1px solid var(--border);
@@ -510,11 +422,11 @@
 
   .project-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    box-shadow: 0 12px 40px rgba(107,95,212,0.18);
   }
 
   .project-card-header {
-    background: linear-gradient(135deg, var(--olive) 0%, var(--ink) 100%);
+    background: linear-gradient(135deg, #2a2850 0%, #0e0f13 100%);
     padding: 1.5rem;
     position: relative;
     overflow: hidden;
@@ -525,17 +437,12 @@
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(200,135,58,0.1) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(200,135,58,0.1) 1px, transparent 1px);
+      linear-gradient(rgba(107,95,212,0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(107,95,212,0.12) 1px, transparent 1px);
     background-size: 30px 30px;
   }
 
-  .project-icon {
-    position: relative;
-    font-size: 2rem;
-    color: var(--accent);
-    margin-bottom: 0.75rem;
-  }
+  .project-icon { position: relative; font-size: 2rem; color: var(--accent-light); margin-bottom: 0.75rem; }
 
   .project-card-title {
     position: relative;
@@ -547,12 +454,7 @@
 
   .project-card-body { padding: 1.25rem 1.5rem 1.5rem; }
 
-  .project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-bottom: 0.9rem;
-  }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.9rem; }
 
   .tag {
     font-family: 'JetBrains Mono', monospace;
@@ -560,17 +462,12 @@
     letter-spacing: 1px;
     text-transform: uppercase;
     padding: 3px 8px;
-    background: rgba(74,82,64,0.12);
+    background: rgba(107,95,212,0.1);
     color: var(--olive);
     border-radius: 2px;
   }
 
-  .project-desc {
-    font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 1.6;
-    margin-bottom: 1.25rem;
-  }
+  .project-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.25rem; }
 
   .project-link {
     display: inline-flex;
@@ -589,29 +486,11 @@
 
   .project-link:hover { gap: 10px; color: var(--accent-light); }
 
-  /* GIS Map Gallery */
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 0.75rem;
-  }
+  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.75rem; }
 
-  .gallery-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 4px;
-    cursor: pointer;
-    aspect-ratio: 4/3;
-  }
+  .gallery-item { position: relative; overflow: hidden; border-radius: 4px; cursor: pointer; aspect-ratio: 4/3; }
 
-  .gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s;
-    display: block;
-  }
-
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; display: block; }
   .gallery-item:hover img { transform: scale(1.06); }
 
   .gallery-overlay {
@@ -626,22 +505,11 @@
   }
 
   .gallery-item:hover .gallery-overlay { opacity: 1; }
+  .gallery-caption { font-size: 0.78rem; font-weight: 600; color: var(--white); line-height: 1.3; }
 
-  .gallery-caption {
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--white);
-    line-height: 1.3;
-  }
-
-  /* ── MAP SECTION ── */
   #map-section { background: var(--sand-light); }
 
-  /* Keep Leaflet below fixed navbar */
-  .leaflet-pane,
-  .leaflet-control,
-  .leaflet-top,
-  .leaflet-bottom { z-index: 1 !important; }
+  .leaflet-pane, .leaflet-control, .leaflet-top, .leaflet-bottom { z-index: 1 !important; }
   .leaflet-control-container .leaflet-top { z-index: 400 !important; }
 
   #map {
@@ -653,85 +521,39 @@
     border: 1px solid var(--border);
   }
 
-  .map-note {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--olive-mid);
-    margin-top: 0.75rem;
-    letter-spacing: 1px;
-  }
+  .map-note { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--olive-mid); margin-top: 0.75rem; letter-spacing: 1px; }
 
-  /* Python outputs */
   .iframe-stack { margin-top: 2rem; display: flex; flex-direction: column; gap: 3rem; }
-
   .iframe-wrap { width: 100%; }
-  .iframe-label {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.3rem;
-    letter-spacing: 2px;
-    color: var(--ink);
-    margin-bottom: 0.5rem;
-  }
-  .iframe-wrap iframe {
-    width: 100%;
-    height: clamp(400px, 60vw, 800px);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-  }
+  .iframe-label { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 2px; color: var(--ink); margin-bottom: 0.5rem; }
+  .iframe-wrap iframe { width: 100%; height: clamp(400px, 60vw, 800px); border: 1px solid var(--border); border-radius: 8px; }
 
-  /* ── CONTACT ── */
-  #contact-section {
-    background: linear-gradient(160deg, var(--ink) 0%, #1c2018 100%);
-  }
-
+  #contact-section { background: linear-gradient(160deg, #0e0f13 0%, #161428 100%); }
   #contact-section section { max-width: 1200px; }
   #contact-section .section-title { color: var(--white); }
-  #contact-section .section-label { color: var(--accent); }
+  #contact-section .section-label { color: var(--accent-light); }
 
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
-  }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
 
-  @media (max-width: 768px) {
-    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
-  }
+  @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; gap: 2rem; } }
 
-  .contact-img {
-    width: 100%;
-    border-radius: 4px;
-    object-fit: cover;
-    aspect-ratio: 4/3;
-  }
-
+  .contact-img { width: 100%; border-radius: 4px; object-fit: cover; aspect-ratio: 4/3; }
   .contact-list { list-style: none; display: flex; flex-direction: column; gap: 1.25rem; }
 
-  .contact-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: clamp(0.88rem, 2vw, 1rem);
-    color: var(--sand);
-  }
+  .contact-item { display: flex; align-items: center; gap: 1rem; font-size: clamp(0.88rem, 2vw, 1rem); color: #d8dbf0; }
 
   .contact-icon {
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(200,135,58,0.4);
+    width: 40px; height: 40px;
+    border: 1px solid rgba(107,95,212,0.4);
     border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent-light);
     flex-shrink: 0;
   }
 
-  .contact-item a { color: var(--sand); text-decoration: none; transition: color 0.2s; }
-  .contact-item a:hover { color: var(--accent); }
+  .contact-item a { color: #d8dbf0; text-decoration: none; transition: color 0.2s; }
+  .contact-item a:hover { color: var(--accent-light); }
 
-  /* ── FOOTER ── */
   footer {
     background: #07080a;
     text-align: center;
@@ -742,9 +564,8 @@
     color: var(--olive-mid);
   }
 
-  footer a { color: var(--accent); text-decoration: none; }
+  footer a { color: var(--accent-light); text-decoration: none; }
 
-  /* ── MODAL ── */
   .modal-overlay {
     display: none;
     position: fixed;
@@ -758,47 +579,25 @@
 
   .modal-overlay.active { display: flex; }
 
-  .modal-inner {
-    max-width: 90vw;
-    max-height: 90vh;
-    position: relative;
-  }
+  .modal-inner { max-width: 90vw; max-height: 90vh; position: relative; }
 
-  .modal-inner img {
-    max-width: 90vw;
-    max-height: 80vh;
-    object-fit: contain;
-    border-radius: 4px;
-    display: block;
-  }
+  .modal-inner img { max-width: 90vw; max-height: 80vh; object-fit: contain; border-radius: 4px; display: block; }
 
-  .modal-cap {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    color: var(--sand);
-    text-align: center;
-    margin-top: 1rem;
-  }
+  .modal-cap { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 2px; color: #d8dbf0; text-align: center; margin-top: 1rem; }
 
   .modal-close {
     position: absolute;
-    top: -2.5rem;
-    right: 0;
+    top: -2.5rem; right: 0;
     background: none;
     border: 1px solid rgba(255,255,255,0.3);
     color: white;
-    width: 32px;
-    height: 32px;
+    width: 32px; height: 32px;
     border-radius: 50%;
     cursor: pointer;
     font-size: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
   }
 
-  /* BACK TO TOP */
   .back-top {
     display: inline-flex;
     align-items: center;
@@ -807,23 +606,21 @@
     font-size: 0.68rem;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--accent-light);
     text-decoration: none;
-    border: 1px solid rgba(200,135,58,0.4);
+    border: 1px solid rgba(107,95,212,0.4);
     padding: 8px 16px;
     border-radius: 4px;
     transition: background 0.2s;
     margin-top: 3rem;
   }
 
-  .back-top:hover { background: rgba(200,135,58,0.1); }
-
+  .back-top:hover { background: rgba(107,95,212,0.12); }
 </style>
 </head>
 
 <body>
 
-<!-- NAV -->
 <nav>
   <a href="#home" class="nav-logo">K.E. Morales</a>
   <ul class="nav-links">
@@ -846,7 +643,6 @@
   <a href="#contact-section" onclick="closeMobile()">Contact</a>
 </div>
 
-<!-- HERO -->
 <div id="home">
   <div class="hero-content">
     <div class="hero-tag">Geospatial Analyst &amp; Marine Veteran</div>
@@ -869,7 +665,6 @@
   </div>
 </div>
 
-<!-- ABOUT -->
 <div id="about-section">
   <section>
     <div class="about-img-wrap">
@@ -880,7 +675,6 @@
       <h2 class="section-title">Who I Am</h2>
       <div class="section-divider"></div>
       <p class="bio-text">Geospatial analyst and U.S. Marine Corps veteran with a background spanning imagery intelligence, spatial data science, and GIS development. I bring a multidisciplinary skill set applicable across government agencies, environmental consulting, urban planning, agriculture, infrastructure, and tech — with hands-on experience in Python, remote sensing, web mapping, and data visualization. I focus on turning complex spatial datasets into clear, actionable outputs.</p>
-
       <div class="quals-grid">
         <div class="qual-item">
           <i class="fa fa-graduation-cap qual-icon"></i>
@@ -915,29 +709,15 @@
   </section>
 </div>
 
-<!-- STATS BANNER -->
 <div class="stats-banner">
   <div class="stats-grid">
-    <div>
-      <span class="stat-num">8</span>
-      <div class="stat-label">Deployments Supported</div>
-    </div>
-    <div>
-      <span class="stat-num">3</span>
-      <div class="stat-label">Squadron Elements Trained</div>
-    </div>
-    <div>
-      <span class="stat-num">300+</span>
-      <div class="stat-label">Intelligence Products</div>
-    </div>
-    <div>
-      <span class="stat-num">150+</span>
-      <div class="stat-label">Mission Briefs Conducted</div>
-    </div>
+    <div><span class="stat-num">8</span><div class="stat-label">Deployments Supported</div></div>
+    <div><span class="stat-num">3</span><div class="stat-label">Squadron Elements Trained</div></div>
+    <div><span class="stat-num">300+</span><div class="stat-label">Intelligence Products</div></div>
+    <div><span class="stat-num">150+</span><div class="stat-label">Mission Briefs Conducted</div></div>
   </div>
 </div>
 
-<!-- EXPERIENCE -->
 <div id="experience-section">
   <section>
     <div class="section-label">Career History</div>
@@ -1062,7 +842,6 @@
   </section>
 </div>
 
-<!-- PRODUCTS -->
 <div id="products-section">
   <section>
     <div class="section-label">Work Samples</div>
@@ -1070,9 +849,7 @@
     <div class="section-divider"></div>
     <p class="products-intro">A selection of geospatial analysis, remote sensing, and data science projects. Classified work from my time in the Marine Corps is not included.</p>
 
-    <!-- Featured Web Projects -->
     <div class="web-projects">
-
       <div class="project-card">
         <div class="project-card-header">
           <div class="project-icon"><i class="fa fa-project-diagram"></i></div>
@@ -1085,9 +862,7 @@
             <span class="tag">GIS</span>
           </div>
           <p class="project-desc">A capstone network analysis of Denver's transportation infrastructure. Applies graph-based routing algorithms to evaluate service coverage, connectivity, and spatial accessibility across the metro area — translating large-scale road and transit data into actionable planning insights.</p>
-          <a href="https://lakevs14.github.io/Capstone-Final/" target="_blank" class="project-link">
-            View Project <i class="fa fa-arrow-right"></i>
-          </a>
+          <a href="https://lakevs14.github.io/Capstone-Final/" target="_blank" class="project-link">View Project <i class="fa fa-arrow-right"></i></a>
         </div>
       </div>
 
@@ -1104,9 +879,7 @@
             <span class="tag">Spatiotemporal</span>
           </div>
           <p class="project-desc">An Earth Data Science study integrating machine learning models with geospatial hydrological data across Colorado. Employs regression and harmonic analysis to predict streamflow and snow water equivalency (SWE) trends — supporting water resource management through data-driven forecasting.</p>
-          <a href="https://lakevs14.github.io/Geospatial-Study/" target="_blank" class="project-link">
-            View Study <i class="fa fa-arrow-right"></i>
-          </a>
+          <a href="https://lakevs14.github.io/Geospatial-Study/" target="_blank" class="project-link">View Study <i class="fa fa-arrow-right"></i></a>
         </div>
       </div>
 
@@ -1123,15 +896,11 @@
             <span class="tag">Burn Severity</span>
           </div>
           <p class="project-desc">A post-fire severity analysis using multispectral satellite imagery. Applies Normalized Burn Ratio (NBR) and differenced NBR (dNBR) techniques to quantify burn severity and map vegetation loss across the Hammer Fire perimeter — demonstrating applied remote sensing for wildfire assessment and environmental monitoring.</p>
-          <a href="https://lakevs14.github.io/Hammer-Fire-/" target="_blank" class="project-link">
-            View Analysis <i class="fa fa-arrow-right"></i>
-          </a>
+          <a href="https://lakevs14.github.io/Hammer-Fire-/" target="_blank" class="project-link">View Analysis <i class="fa fa-arrow-right"></i></a>
         </div>
       </div>
-
     </div>
 
-    <!-- GIS Map Gallery -->
     <div class="section-label" style="margin-top:2rem;">GIS Map Gallery</div>
     <p style="font-size:0.87rem; color:var(--muted); margin-bottom:1.25rem;">Click any image to enlarge.</p>
 
@@ -1169,11 +938,9 @@
         <div class="gallery-overlay"><span class="gallery-caption">Multi-Watershed Analysis</span></div>
       </div>
     </div>
-
   </section>
 </div>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
   <div class="modal-inner" onclick="event.stopPropagation()">
     <button class="modal-close" onclick="closeModal()"><i class="fa fa-times"></i></button>
@@ -1182,7 +949,6 @@
   </div>
 </div>
 
-<!-- INTERACTIVE MAP -->
 <div id="map-section">
   <section>
     <div class="section-label">GeoJSON / Leaflet</div>
@@ -1192,12 +958,14 @@
     <div id="map"></div>
     <p class="map-note">Toggle layers using the control in the top-right corner of the map.</p>
 
-    <!-- Python Outputs -->
     <div class="iframe-stack">
       <div class="iframe-wrap">
-        <div class="iframe-label">SWE Harmonic Plot</div>
-        <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.75rem;">Harmonic regression applied to Snow Water Equivalency time-series data across Colorado watersheds — revealing seasonal patterns and long-term trends.</p>
-        <iframe src="https://lakevs14.github.io/ESIIL/swe_harmonic.html" loading="lazy" title="SWE Harmonic Plot"></iframe>
+        <div class="iframe-label">SWE &amp; Temperature Pearson Correlation</div>
+        <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.75rem;">Pearson correlation coefficient analysis of Snow Water Equivalency and temperature across Colorado — quantifying the relationship between snowpack and thermal conditions across major watersheds.</p>
+        <!-- Large screens: interactive HTML -->
+        <iframe class="pearson-iframe" src="https://lakevs14.github.io/ProfWeb1/SWE_%20Temp_Pear.html" loading="lazy" title="SWE Temperature Pearson Correlation" scrolling="no" style="height:630px;"></iframe>
+        <!-- Small screens: static PNG -->
+        <img class="pearson-img" src="https://lakevs14.github.io/ProfWeb1/swe_temp_pearson.png" alt="SWE and Temperature Pearson Correlation Plot" style="width:100%; border-radius:8px; border:1px solid var(--border); display:none;">
       </div>
       <div class="iframe-wrap">
         <div class="iframe-label">Population, SWE, Discharge &amp; Irrigation Change Map</div>
@@ -1210,11 +978,9 @@
         <iframe src="https://lakevs14.github.io/ESIIL/discharge_regression.html" loading="lazy" title="Discharge Regression"></iframe>
       </div>
     </div>
-
   </section>
 </div>
 
-<!-- CONTACT -->
 <div id="contact-section">
   <section>
     <div class="section-label">Get In Touch</div>
@@ -1252,31 +1018,36 @@
 </footer>
 
 <script>
-// ── MOBILE NAV ──
-function toggleMobile() {
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-function closeMobile() {
-  document.getElementById('mobileMenu').classList.remove('open');
-}
+function toggleMobile() { document.getElementById('mobileMenu').classList.toggle('open'); }
 
-// ── ACCORDION ──
+// Pearson plot: iframe on large screens, PNG on small screens
+function updatePearsonDisplay() {
+  const iframe = document.querySelector('.pearson-iframe');
+  const img = document.querySelector('.pearson-img');
+  if (!iframe || !img) return;
+  if (window.innerWidth < 768) {
+    iframe.style.display = 'none';
+    img.style.display = 'block';
+  } else {
+    iframe.style.display = 'block';
+    img.style.display = 'none';
+  }
+}
+updatePearsonDisplay();
+window.addEventListener('resize', updatePearsonDisplay);
+function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+
 function toggleExp(id) {
   const el = document.getElementById(id);
   const body = el.querySelector('.exp-body');
   const isOpen = el.classList.contains('open');
-  // close all
   document.querySelectorAll('.exp-accordion').forEach(a => {
     a.classList.remove('open');
     a.querySelector('.exp-body').style.display = 'none';
   });
-  if (!isOpen) {
-    el.classList.add('open');
-    body.style.display = 'block';
-  }
+  if (!isOpen) { el.classList.add('open'); body.style.display = 'block'; }
 }
 
-// ── MODAL ──
 function openModal(el) {
   const img = el.querySelector('img');
   document.getElementById('modalImg').src = img.src;
@@ -1290,7 +1061,6 @@ function closeModal() {
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-// ── LEAFLET MAP ──
 $(document).ready(function() {
   var map = L.map('map').setView([0, 0], 11);
   var OSMTiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>' }).addTo(map);
@@ -1301,7 +1071,7 @@ $(document).ready(function() {
 
   function style1(feature) {
     var d = feature.properties.PERCENT_OBESE_;
-    var color = d > 40 ? 'rgb(12,44,132)' : d > 35 ? 'rgb(34,94,168)' : d > 30 ? 'rgb(29,145,192)' : d > 25 ? 'rgb(65,182,196)' : d > 20 ? 'rgb(127,205,187)' : d > 15 ? 'rgb(199,233,180)' : d > 10 ? 'rgb(237,248,177)' : 'rgb(255,255,217)';
+    var color = d > 40 ? 'rgb(49,27,146)' : d > 35 ? 'rgb(81,45,168)' : d > 30 ? 'rgb(107,95,212)' : d > 25 ? 'rgb(126,115,220)' : d > 20 ? 'rgb(159,152,232)' : d > 15 ? 'rgb(197,191,243)' : d > 10 ? 'rgb(225,222,250)' : 'rgb(243,242,255)';
     return { fillColor: color, weight: 1, opacity: 1, color: 'white', dashArray: '3', fillOpacity: 0.7 };
   }
 
@@ -1317,7 +1087,7 @@ $(document).ready(function() {
   legend.onAdd = function() {
     var div = L.DomUtil.create('div', 'info legend');
     div.style.cssText = 'background:white;padding:10px;border-radius:6px;font-family:monospace;font-size:11px;';
-    var colors = ['rgb(255,255,217)','rgb(237,248,177)','rgb(199,233,180)','rgb(127,205,187)','rgb(65,182,196)','rgb(29,145,192)','rgb(34,94,168)','rgb(12,44,132)'];
+    var colors = ['rgb(243,242,255)','rgb(225,222,250)','rgb(197,191,243)','rgb(159,152,232)','rgb(126,115,220)','rgb(107,95,212)','rgb(81,45,168)','rgb(49,27,146)'];
     var labels = ['0–10%','10–15%','15–20%','20–25%','25–30%','30–35%','35–40%','40%+'];
     div.innerHTML = '<strong style="display:block;margin-bottom:6px;">Adult Obesity<br>Denver 2014–2016</strong>';
     for (var i = 0; i < colors.length; i++) {
