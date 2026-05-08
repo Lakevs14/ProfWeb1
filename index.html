@@ -528,6 +528,65 @@
   .iframe-label { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 2px; color: var(--ink); margin-bottom: 0.5rem; }
   .iframe-wrap iframe { width: 100%; height: clamp(400px, 60vw, 800px); border: 1px solid var(--border); border-radius: 8px; }
 
+  /* ── Colorado Map Legend ─────────────────────────────────────── */
+  .co-map-legend-wrap {
+    margin-top: 1.25rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .co-legend-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.9rem 1rem 1rem;
+  }
+
+  .co-legend-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.65rem;
+    line-height: 1.4;
+  }
+
+  .co-legend-bar {
+    height: 12px;
+    border-radius: 3px;
+    width: 100%;
+    margin-bottom: 0.35rem;
+  }
+
+  .co-legend-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--olive-mid);
+    letter-spacing: 0.5px;
+  }
+
+  .co-legend-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--olive-light);
+    margin-top: 0.3rem;
+    letter-spacing: 0.5px;
+  }
+
+  /* Population — yellow → red */
+  .bar-pop { background: linear-gradient(to right, #ffffb2, #fed976, #feb24c, #fd8d3c, #f03b20, #bd0026); }
+  /* Agriculture — dark green → pale yellow */
+  .bar-ag  { background: linear-gradient(to right, #005a32, #238443, #41ab5d, #78c679, #addd8e, #d9f0a3, #f7fcb9); }
+  /* Discharge — deep purple → pale lavender */
+  .bar-dis { background: linear-gradient(to right, #4a1486, #6a51a3, #807dba, #9e9ac8, #bcbddc, #dadaeb, #efedf5); }
+  /* SWE — dark red → blue */
+  .bar-swe { background: linear-gradient(to right, #67000d, #d7301f, #fc8d59, #fef0d9, #91bfdb, #4575b4); }
+  /* ─────────────────────────────────────────────────────────────── */
+
   #contact-section { background: linear-gradient(160deg, #0e0f13 0%, #161428 100%); }
   #contact-section section { max-width: 1200px; }
   #contact-section .section-title { color: var(--white); }
@@ -967,11 +1026,64 @@
         <!-- Small screens: static PNG -->
         <img class="pearson-img" src="https://lakevs14.github.io/ProfWeb1/swe_temp_pearson.png" alt="SWE and Temperature Pearson Correlation Plot" style="width:100%; border-radius:8px; border:1px solid var(--border); display:none;">
       </div>
+
       <div class="iframe-wrap">
         <div class="iframe-label">Population, SWE, Discharge &amp; Irrigation Change Map</div>
         <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.75rem;">An interactive choropleth synthesizing demographic, hydrological, and agricultural datasets — exploring equity dimensions of water access in Colorado.</p>
-        <iframe src="https://lakevs14.github.io/ESIIL/final_map.html" loading="lazy" title="Colorado Final Map"></iframe>
+
+        <!-- ── Embedded Legend ─────────────────────────────────── -->
+        <div class="co-map-legend-wrap">
+
+          <div class="co-legend-card">
+            <div class="co-legend-title">Total Population % Change<br>1985–2001 vs 2002–2024</div>
+            <div class="co-legend-bar bar-pop"></div>
+            <div class="co-legend-labels">
+              <span>Low</span>
+              <span>▶</span>
+              <span>High (+150%)</span>
+            </div>
+            <div class="co-legend-note">County level · Yellow → Red</div>
+          </div>
+
+          <div class="co-legend-card">
+            <div class="co-legend-title">Irrigated Agriculture % Change<br>Pre-2000 vs Post-2000</div>
+            <div class="co-legend-bar bar-ag"></div>
+            <div class="co-legend-labels">
+              <span>Decrease</span>
+              <span>▶</span>
+              <span>Increase</span>
+            </div>
+            <div class="co-legend-note">County level · Dark Green → Pale Yellow</div>
+          </div>
+
+          <div class="co-legend-card">
+            <div class="co-legend-title">Stream Discharge % Change<br>1980–2001 vs 2002–2024</div>
+            <div class="co-legend-bar bar-dis"></div>
+            <div class="co-legend-labels">
+              <span>Decrease</span>
+              <span>▶</span>
+              <span>Increase</span>
+            </div>
+            <div class="co-legend-note">Gauge stations · Deep Purple → Lavender</div>
+          </div>
+
+          <div class="co-legend-card">
+            <div class="co-legend-title">Snow Water Equiv. % Change<br>1980–2001 vs 2002–2024</div>
+            <div class="co-legend-bar bar-swe"></div>
+            <div class="co-legend-labels">
+              <span>Loss</span>
+              <span>▶</span>
+              <span>Gain</span>
+            </div>
+            <div class="co-legend-note">SNOTEL stations · Dark Red → Blue</div>
+          </div>
+
+        </div>
+        <!-- ── End Legend ──────────────────────────────────────── -->
+
+        <iframe src="https://lakevs14.github.io/ProfWeb1/colorado_changes_map.html" loading="lazy" title="Colorado Final Map" style="margin-top:1rem;"></iframe>
       </div>
+
       <div class="iframe-wrap">
         <div class="iframe-label">Streamflow Regression Plot</div>
         <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.75rem;">Statistical regression analysis of cubic feet per second (cf³) discharge rates across major Colorado river gauges.</p>
@@ -1101,3 +1213,4 @@ $(document).ready(function() {
 
 </body>
 </html>
+
