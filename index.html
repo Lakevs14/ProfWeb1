@@ -587,6 +587,62 @@
   .bar-swe { background: linear-gradient(to right, #67000d, #d7301f, #fc8d59, #fef0d9, #91bfdb, #4575b4); }
   /* ─────────────────────────────────────────────────────────────── */
 
+  /* ── Streamflow Regression Summary ──────────────────────────── */
+  .regression-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .reg-stat {
+    flex: 1 1 180px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 4px 4px 0;
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .reg-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--olive-mid);
+  }
+
+  .reg-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    color: var(--accent-light);
+    line-height: 1;
+  }
+
+  .reg-unit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--olive-light);
+    letter-spacing: 1px;
+  }
+
+  /* Small & medium screens (≤1024px): show summary + PNG, hide iframe */
+  @media (max-width: 1024px) {
+    .streamflow-iframe { display: none !important; }
+    .streamflow-img { display: block !important; }
+  }
+
+  /* Large screens (≥1025px): show iframe, hide summary + PNG */
+  @media (min-width: 1025px) {
+    .regression-summary { display: none; }
+    .streamflow-img { display: none !important; }
+    .streamflow-iframe { display: block; }
+  }
+  /* ─────────────────────────────────────────────────────────────── */
+
   #contact-section { background: linear-gradient(160deg, #0e0f13 0%, #161428 100%); }
   #contact-section section { max-width: 1200px; }
   #contact-section .section-title { color: var(--white); }
@@ -1087,8 +1143,34 @@
       <div class="iframe-wrap">
         <div class="iframe-label">Streamflow Regression Plot</div>
         <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.75rem;">Statistical regression analysis of cubic feet per second (cf³) discharge rates across major Colorado river gauges.</p>
-        <iframe src="https://lakevs14.github.io/ESIIL/discharge_regression.html" loading="lazy" title="Discharge Regression"></iframe>
+
+        <!-- Regression summary stats — medium & large screens only (≥601px) -->
+        <div class="regression-summary">
+          <div class="reg-stat">
+            <span class="reg-label">Trend Slope</span>
+            <span class="reg-value">−7.5696 <span class="reg-unit">cfs/year</span></span>
+          </div>
+          <div class="reg-stat">
+            <span class="reg-label">Trend Intercept</span>
+            <span class="reg-value">15,983.62 <span class="reg-unit">cfs</span></span>
+          </div>
+          <div class="reg-stat">
+            <span class="reg-label">Mean Discharge 1980–2001</span>
+            <span class="reg-value">931.1 <span class="reg-unit">cfs</span></span>
+          </div>
+          <div class="reg-stat">
+            <span class="reg-label">Mean Discharge 2002–2024</span>
+            <span class="reg-value">732.0 <span class="reg-unit">cfs</span></span>
+          </div>
+        </div>
+
+        <!-- Large screens (≥601px): interactive iframe -->
+        <iframe class="streamflow-iframe" src="https://lakevs14.github.io/ESIIL/discharge_regression.html" loading="lazy" title="Discharge Regression"></iframe>
+
+        <!-- Small screens (≤600px): static PNG -->
+        <img class="streamflow-img" src="https://lakevs14.github.io/ProfWeb1/streamflow_regression.png" alt="Streamflow Regression Plot" style="width:100%; border-radius:8px; border:1px solid var(--border); display:none;">
       </div>
+
     </div>
   </section>
 </div>
@@ -1213,4 +1295,3 @@ $(document).ready(function() {
 
 </body>
 </html>
-
